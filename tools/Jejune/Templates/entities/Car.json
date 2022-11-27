@@ -1,0 +1,26 @@
+{
+  "context":"CarExampleContext",
+  "entity": "Car",
+  "vars": [
+    {
+        "type": "long",
+        "name": "Id",
+        "sep": ", "
+    },
+    {
+        "type": "string",
+        "name": "Brand",
+        "sep": ", "
+    },
+    {
+        "type": "string",
+        "name": "Model",
+        "sep": ", "
+    },
+    {
+        "type": "string",
+        "name": "Color",
+        "sep": ", "
+    }
+  ]
+}
