@@ -10,6 +10,11 @@
     <Compile Include="Gen.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Entities\**" />
+    <EmbeddedResource Remove="Templates\**" />
+  </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Fsharp.Data" Version="3.3.3" />

@@ -11,16 +11,12 @@ open System.IO
 
 [<EntryPoint>]
 let main argv =
-    
-    let currentDir = Directory.GetCurrentDirectory();
-    let projectDirectory = Directory.GetParent(currentDir).Parent.Parent.Parent.Parent.Parent.FullName
-    let templates_path = Path.Combine(projectDirectory, "Templates", "template")
-    let entities_path = Path.Combine(projectDirectory, "Templates", "entities")
-
+    let baseDirectory = Directory.GetParent(__SOURCE_DIRECTORY__)
+    let entities_path = Path.Combine(baseDirectory.ToString(), "Entities")
     let entities = load_entities(Path.Combine(entities_path, "entities.txt"))
+    let templates_path = Path.Combine(baseDirectory.ToString(),"Templates")
     Console.Write("Output path: ")
     let source_path = Console.ReadLine()
-
     copyAndExpandFiles entities entities_path  templates_path source_path
     0
     
