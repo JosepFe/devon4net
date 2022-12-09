@@ -1,0 +1,9 @@
+{
+  "circuitbreaker": false,
+  "jwt": true,
+  "rabbitmq": false,
+  "mediatr": true,
+  "kafka": false,
+  "grpc": false,
+  "nexus": false
+}
