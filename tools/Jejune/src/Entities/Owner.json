@@ -1,0 +1,26 @@
+{
+  "context":"CarExampleContext",
+  "entity": "Owner",
+  "vars": [
+    {
+        "type": "long",
+        "name": "Id",
+        "sep": ", "
+    },
+    {
+        "type": "string",
+        "name": "Name",
+        "sep": ", "
+    },
+    {
+        "type": "string",
+        "name": "Surname",
+        "sep": ", "
+    },
+    {
+        "type": "long",
+        "name": "CarId",
+        "sep": ", "
+    }
+  ]
+}
