@@ -8,7 +8,6 @@
   <ItemGroup>
     <Compile Include="Consts\Devon4netCliConsts.fs" />
     <Compile Include="Utils\Utils.fs" />
-    <Compile Include="Dto\WebApiComponentsDto.fs" />
     <Compile Include="ConsoleAppComponents.fs" />
     <Compile Include="AwsLambdaComponents.fs" />
     <Compile Include="AzureAppServiceComponents.fs" />

@@ -26,7 +26,7 @@ let printMenu () =
     printfn "%s" Done
     printf "Enter your choise: "
 
-let createComponentJsonFile() =
+let createWebApiProject() =
     let json =
         JsonSerializer.Serialize(
             {| circuitbreaker = CircuitBreaker.Contains("+"); 
@@ -54,7 +54,7 @@ let createComponentJsonFile() =
 
     devon4net_webapi_components_generation output_path Devon4netCliConsts.templates_path destinationPath
 
-    System.IO.File.Delete(componentsJsonPath)
+    //System.IO.File.Delete(componentsJsonPath)
 
     printfn "Completed"
 
@@ -92,7 +92,7 @@ let rec webapi_components_menu () =
         System.Console.Clear();
         webapi_components_menu()
     | true, 8 -> 
-        createComponentJsonFile()
+        createWebApiProject()
         exit 0
     | _ -> webapi_components_menu()
 
