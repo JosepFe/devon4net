@@ -27,7 +27,7 @@ let printMenu () =
     printf "Enter your choise: "
 
 let createWebApiProject() =
-    let json =
+    let componentInfo =
         JsonSerializer.Serialize(
             {| circuitbreaker = CircuitBreaker.Contains("+"); 
                jwt = Jwt.Contains("+"); 
@@ -41,10 +41,6 @@ let createWebApiProject() =
     printf "Output path: "
     let output_path = Console.ReadLine()
 
-    let componentsJsonPath = Path.Combine( output_path, Devon4netCliConsts.componentsJsonFileName)
-
-    System.IO.File.WriteAllText(componentsJsonPath, json)
-
     let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
     installTemplateProcess.WaitForExit()
     let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_launch
@@ -52,9 +48,7 @@ let createWebApiProject() =
 
     let destinationPath = Path.Combine(output_path, Devon4netCliConsts.devon4netAppPath)
 
-    devon4net_webapi_components_generation output_path Devon4netCliConsts.templates_path destinationPath
-
-    //System.IO.File.Delete(componentsJsonPath)
+    devon4net_webapi_components_generation componentInfo Devon4netCliConsts.templates_path destinationPath
 
     printfn "Completed"
 

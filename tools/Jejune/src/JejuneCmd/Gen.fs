@@ -5,6 +5,7 @@ open System.IO
 open HandlebarsDotNet
 open JsonData
 open Utils
+open FSharp.Data
 
 let load_entities path = 
 
@@ -60,27 +61,23 @@ let copyAndExpandFiles (entitielist: string list) (entities_path: string) (fromp
         expand_write_file entitydata service topath "Business/{{entity}}Management/Services/{{entity}}Service.cs"
         expand_write_file entitydata iservice topath "Business/{{entity}}Management/Services/I{{entity}}Service.cs"
 
-
-let component_apply_template (entity: Generic.IDictionary<string,obj>) (template: HandlebarsTemplate<obj,obj>) base_path (path: string) =
+let component_apply_template (componentToApply: Generic.IDictionary<string,obj>) (template: HandlebarsTemplate<obj,obj>) base_path (path: string) =
     let _path = Path.Combine(base_path, path)
 
     let dir = Path.GetDirectoryName(_path)
     if not (File.Exists(dir)) then        
         Directory.CreateDirectory(dir) |> ignore
 
-    File.WriteAllText(_path, template.Invoke(entity)) 
+    File.WriteAllText(_path, template.Invoke(componentToApply)) 
 
-let devon4net_webapi_components_generation (components_path: string) (frompath: string) (topath: string) =
+let devon4net_webapi_components_generation (componentInfo: string) (frompath: string) (topath: string) =
 
     let program = load_template frompath "Program.cs.hbs" 
     let appsettings = load_template frompath "Appsettings.Development.json.hbs" 
     let csproj = load_template frompath "Devon4Net.Application.WebAPI.csproj.hbs"
     let devonConfiguration = load_template frompath "DevonConfiguration.cs.hbs"
 
-    let webapiComponentFile = Path.Combine(components_path, "components.json")       
-    let webapiComponentData = match deserialize webapiComponentFile with       
-                    | Ok o -> jsonpropsToDict o
-                    | Error e -> failwith e.Message
+    let webapiComponentData = jsonpropsToDict (JsonValue.Parse(componentInfo))
 
     let rabbitmq = Convert.ToBoolean(webapiComponentData.Item("rabbitmq"))
     let mediatr = Convert.ToBoolean(webapiComponentData.Item("mediatr"))
