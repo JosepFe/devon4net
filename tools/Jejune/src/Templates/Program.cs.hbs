@@ -1,10 +1,11 @@
 ﻿using Devon4Net.Application.WebAPI.Configuration;
-using Devon4Net.Domain.UnitOfWork;
 using Devon4Net.Infrastructure.Cors;
 using Devon4Net.Infrastructure.Swagger;
 using Devon4Net.Infrastructure.Logger;
 using Devon4Net.Infrastructure.Common.Application.ApplicationTypes.API;
 using Devon4Net.Infrastructure.Common.Application.Middleware;
+using Devon4Net.Infrastructure.UnitOfWork;
+using Devon4Net.Infrastructure.LiteDb;
 {{#if circuitbreaker}}
 using Devon4Net.Infrastructure.CircuitBreaker;
 {{/if}}
@@ -12,7 +13,7 @@ using Devon4Net.Infrastructure.CircuitBreaker;
 using Devon4Net.Infrastructure.JWT;
 {{/if}}
 {{#if rabbitmq}}
-using Devon4Net.Infrastructure.RabbitMq;
+using Devon4Net.Infrastructure.RabbitMQ;
 {{/if}}
 {{#if mediatr}}
 using Devon4Net.Infrastructure.MediatR;

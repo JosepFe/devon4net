@@ -6,11 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Consts\Devon4netCliConsts.fs" />
+    <Compile Include="Utils\Utils.fs" />
+    <Compile Include="Dto\WebApiComponentsDto.fs" />
     <Compile Include="ConsoleAppComponents.fs" />
     <Compile Include="AwsLambdaComponents.fs" />
     <Compile Include="AzureAppServiceComponents.fs" />
     <Compile Include="WebapiComponents.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Jejune\src\JejuneCmd\JejuneCmd.fsproj" />
   </ItemGroup>
 
 </Project>

@@ -16,13 +16,9 @@ let main argv =
 
     let templates_path = Path.Combine(baseDirectory.ToString(),"Templates")
 
-    let components_path = Path.Combine(baseDirectory.ToString(), "Components")
-    let components = load_components(Path.Combine(components_path, "components.txt"))
-
     Console.Write("Output path: ")
     let source_path = Console.ReadLine()
-    //copyAndExpandFiles entities entities_path  templates_path source_path
-    devon4net_webapi_components_generation components components_path templates_path source_path
+    copyAndExpandFiles entities entities_path  templates_path source_path
     0
     
     

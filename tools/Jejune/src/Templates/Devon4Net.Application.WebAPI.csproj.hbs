@@ -7,11 +7,11 @@
 	  <Authors>Capgemini, ADCenter Valencia, Traiectum Team</Authors>
 	  <Company>Capgemini S.A.</Company>
 	  <Description>WebAPI template project. This project shows how to instantiate devon4net and invoke devon4net modules</Description>
-	  <Version>6.0.7</Version>
+	  <Version>6.0.11</Version>
 	  <Copyright>Copyright © Capgemini</Copyright>
 	  <PackageProjectUrl>https://github.com/devonfw/devon4net</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/devonfw/devon4net</RepositoryUrl>
-	  <license>https://github.com/devonfw/ide/blob/master/LICENSE/</license>
+	  <license>https://raw.githubusercontent.com/devonfw/ide/master/LICENSE</license>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>devonfw;devon4net;Capgemini;api;webapi</PackageTags>
 	  <PackageReleaseNotes>NET 6.0+ compatibility version</PackageReleaseNotes>
@@ -19,58 +19,41 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <IsPackable>true</IsPackable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="..\..\..\..\assets\images\devonfw.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\..\..\..\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\..\..\..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>	
-	
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Common\Devon4Net.Infrastructure.Common.csproj" />
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Cors\Devon4Net.Infrastructure.Cors.csproj" />
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.FluentValidation\Devon4Net.Infrastructure.FluentValidation.csproj" />
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.UnitOfWork\Devon4Net.Infrastructure.UnitOfWork.csproj" />
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Swagger\Devon4Net.Infrastructure.Swagger.csproj" />
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Logger\Devon4Net.Infrastructure.Logger.csproj" />
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.LiteDb\Devon4Net.Infrastructure.LiteDb.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.LiteDb" Version="6.0.11" />
+	  <PackageReference Include="Devon4Net.Infrastructure.Common" Version="6.0.11" />
+	  <PackageReference Include="Devon4Net.Infrastructure.Cors" Version="6.0.11" />
+	  <PackageReference Include="Devon4Net.Infrastructure.FluentValidation" Version="6.0.11" />
+	  <PackageReference Include="Devon4Net.Infrastructure.Logger" Version="6.0.11" />
+	  <PackageReference Include="Devon4Net.Infrastructure.Swagger" Version="6.0.11" />
+	  <PackageReference Include="Devon4Net.Infrastructure.UnitOfWork" Version="6.0.11" />
 {{#if circuitbreaker}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.CircuitBreaker\Devon4Net.Infrastructure.CircuitBreaker.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.CircuitBreaker" Version="6.0.11" />
 {{/if}}
 {{#if jwt}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.JWT\Devon4Net.Infrastructure.JWT.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.JWT" Version="6.0.11" />
 {{/if}}
 {{#if rabbitmq}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.RabbitMQ\Devon4Net.Infrastructure.RabbitMQ.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.RabbitMQ" Version="6.0.11" />
 {{/if}}
 {{#if mediatr}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.MediatR\Devon4Net.Infrastructure.MediatR.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.MediatR" Version="6.0.11" />
 {{/if}}
 {{#if kafka}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Kafka\Devon4Net.Infrastructure.Kafka.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.Kafka" Version="6.0.11" />
 {{/if}}
 {{#if grpc}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Grpc\Devon4Net.Infrastructure.Grpc.csproj" />
+    <PackageReference Include="Devon4Net.Infrastructure.Grpc" Version="6.0.11" />
 {{/if}}
 {{#if nexus}}
-    <ProjectReference Include="..\..\..\Modules\Devon4Net.Infrastructure.Grpc\Devon4Net.Infrastructure.Nexus.csproj" /> 
+    <PackageReference Include="Devon4Net.Infrastructure.Nexus" Version="6.0.11" /> 
 {{/if}}
   </ItemGroup>
 

@@ -36,11 +36,11 @@ let rec menu () =
         WebApiGen()
     | true, 2 -> 
         ConsoleGen()
-        menu()
     | true, 3 -> 
         AwsLambdaGen()
     | true, 4 -> 
         AzureAppServiceGen()
     | _ -> menu()
 
+System.Console.Clear();
 menu ()

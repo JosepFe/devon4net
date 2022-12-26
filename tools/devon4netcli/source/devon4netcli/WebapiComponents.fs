@@ -1,4 +1,8 @@
 ﻿module Devon4netCli.WebapiComponents
+open System.Text.Json
+open JejuneCmd.Gen
+open System.IO
+open Utils
 open System
 
 let mutable CircuitBreaker = "1. CircuitBreaker"
@@ -22,16 +26,37 @@ let printMenu () =
     printfn "%s" Done
     printf "Enter your choise: "
 
-let getInput () = Int32.TryParse (Console.ReadLine())
+let createComponentJsonFile() =
+    let json =
+        JsonSerializer.Serialize(
+            {| circuitbreaker = CircuitBreaker.Contains("+"); 
+               jwt = Jwt.Contains("+"); 
+               rabbitmq =RabbitMq.Contains("+"); 
+               mediatr = MediatR.Contains("+"); 
+               kafka = Kafka.Contains("+"); 
+               grpc = Grpc.Contains("+"); 
+               nexus = Nexus.Contains("+") |}
+        )
 
-let doThis () = printfn "Do this..."
-let doThat () = printfn "Do that..."
+    printf "Output path: "
+    let output_path = Console.ReadLine()
 
-let choice (devonComponent:string) = 
-    if devonComponent.Contains("+") then 
-        devonComponent.Remove(devonComponent.Length - 2)
-    else 
-        devonComponent + " +"
+    let componentsJsonPath = Path.Combine( output_path, Devon4netCliConsts.componentsJsonFileName)
+
+    System.IO.File.WriteAllText(componentsJsonPath, json)
+
+    let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
+    installTemplateProcess.WaitForExit()
+    let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_launch
+    launchTemplateProcess.WaitForExit()
+
+    let destinationPath = Path.Combine(output_path, Devon4netCliConsts.devon4netAppPath)
+
+    devon4net_webapi_components_generation output_path Devon4netCliConsts.templates_path destinationPath
+
+    System.IO.File.Delete(componentsJsonPath)
+
+    printfn "Completed"
 
 let rec webapi_components_menu () =
     System.Console.Clear();
@@ -66,7 +91,9 @@ let rec webapi_components_menu () =
         Nexus <- choice(Nexus)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 8 -> ()
+    | true, 8 -> 
+        createComponentJsonFile()
+        exit 0
     | _ -> webapi_components_menu()
 
 webapi_components_menu ()

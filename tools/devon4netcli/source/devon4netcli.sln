@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "devon4netcli", "devon4netcli\devon4netcli.fsproj", "{E94B6B9C-F879-4DF0-A888-6D7DC3DCE24C}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "devon4netcli", "devon4netcli\devon4netcli.fsproj", "{E94B6B9C-F879-4DF0-A888-6D7DC3DCE24C}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "JejuneCmd", "..\..\Jejune\src\JejuneCmd\JejuneCmd.fsproj", "{F4D62069-A3CC-4377-9513-651016C3A157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E94B6B9C-F879-4DF0-A888-6D7DC3DCE24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E94B6B9C-F879-4DF0-A888-6D7DC3DCE24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E94B6B9C-F879-4DF0-A888-6D7DC3DCE24C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4D62069-A3CC-4377-9513-651016C3A157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D62069-A3CC-4377-9513-651016C3A157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D62069-A3CC-4377-9513-651016C3A157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D62069-A3CC-4377-9513-651016C3A157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
