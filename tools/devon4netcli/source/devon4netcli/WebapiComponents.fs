@@ -43,12 +43,12 @@ let createWebApiProject() =
 
     let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
     installTemplateProcess.WaitForExit()
-    let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_launch
+    let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netWebApiTemplate_launch
     launchTemplateProcess.WaitForExit()
 
     let destinationPath = Path.Combine(output_path, Devon4netCliConsts.devon4netAppPath)
 
-    devon4net_webapi_components_generation componentInfo Devon4netCliConsts.templates_path destinationPath
+    devon4net_webapi_components_generation componentInfo Devon4netCliConsts.webapi_templates_path destinationPath
 
     printfn "Completed"
 

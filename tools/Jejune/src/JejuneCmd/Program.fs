@@ -14,7 +14,7 @@ let main argv =
     let entities_path = Path.Combine(baseDirectory.ToString(), "Entities")
     let entities = load_entities(Path.Combine(entities_path, "entities.txt"))
 
-    let templates_path = Path.Combine(baseDirectory.ToString(),"Templates")
+    let templates_path = Path.Combine(baseDirectory.ToString(),"Templates", "Crud")
 
     Console.Write("Output path: ")
     let source_path = Console.ReadLine()

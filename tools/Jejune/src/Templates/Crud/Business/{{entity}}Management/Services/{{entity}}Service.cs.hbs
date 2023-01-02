@@ -1,0 +1,73 @@
+﻿using Devon4Net.Application.WebAPI.Business.{{entity}}Management.Converters;
+using Devon4Net.Application.WebAPI.Business.{{entity}}Management.Dto;
+using Devon4Net.Application.WebAPI.Domain.Database;
+using Devon4Net.Application.WebAPI.Domain.Entities;
+using Devon4Net.Application.WebAPI.Domain.RepositoryInterfaces;
+using Devon4Net.Domain.UnitOfWork.Service;
+using Devon4Net.Domain.UnitOfWork.UnitOfWork;
+using Devon4Net.Infrastructure.Common;
+using System.Linq.Expressions;
+
+namespace Devon4Net.Application.WebAPI.Business.{{entity}}Management.Services
+{
+    public class {{entity}}Service : Service<{{context}}>, I{{entity}}Service
+    {
+        private readonly I{{entity}}Repository _{{entity}}Repository;
+        public {{entity}}Service(IUnitOfWork<{{context}}> uoW) : base(uoW)
+        {
+            _{{entity}}Repository = uoW.Repository<I{{entity}}Repository>();
+        }
+
+        public async Task<IEnumerable<{{entity}}Dto>> Get{{entity}}s(Expression<Func<{{entity}}, bool>> predicate = null)
+        {
+            Devon4NetLogger.Debug($"Get{{entity}}s method from service {{entity}}Service");
+            var result = await _{{entity}}Repository.Get(predicate).ConfigureAwait(false);
+            return result.Select({{entity}}Converter.ModelToDto);
+        }
+
+        public async Task<{{entity}}Dto> GetGet{{entity}}ById({{vars.0.type}} id)
+        {
+            Devon4NetLogger.Debug($"GetGet{{entity}}ById method from service {{entity}}Service with value : {id}");
+            var result = await _{{entity}}Repository.Get{{entity}}ById(id).ConfigureAwait(false);
+            return {{entity}}Converter.ModelToDto(result);
+        }
+
+        public async Task<{{entity}}Dto> Create{{entity}}({{entity}}Dto {{entity}})
+        {
+            //TODO: Add validation if required
+            var swap = {{entity}};            
+            var result = await _{{entity}}Repository.Create({{#each vars}}swap.{{this.name}}{{#unless @last}}{{this.sep}}{{/unless}}{{/each}}).ConfigureAwait(false);
+            return {{entity}}Converter.ModelToDto(result);
+        }
+
+        public async Task<{{vars.0.type}}> Delete{{entity}}({{vars.0.type}} id)
+        {
+            var {{entity}} = await _{{entity}}Repository.GetFirstOrDefault(t => t.Id == id).ConfigureAwait(false);
+
+            if ({{entity}} == null)
+            {
+                throw new ArgumentException($"The provided Id {id} does not exists");
+            }
+
+            return await _{{entity}}Repository.Delete{{entity}}ById(id).ConfigureAwait(false);
+        }
+
+        public async Task<{{entity}}Dto> Modify{{entity}}ById({{vars.0.type}} id, {{entity}}Dto {{entity}})
+        {
+            Devon4NetLogger.Debug($"Modify{{entity}}ById method from service {{entity}}Service with value : {id}");
+
+            var ToUpdate = await _{{entity}}Repository.GetFirstOrDefault(t => t.Id == id).ConfigureAwait(false);
+
+            if (ToUpdate == null)
+            {
+                throw new ArgumentException($"The provided Id {id} does not exists");
+            }
+            var swap = {{entity}};
+            {{#each vars}}ToUpdate.{{this.name}} = swap.{{this.name}};
+            {{/each}}                                
+                                
+            var result = await _{{entity}}Repository.Update(ToUpdate).ConfigureAwait(false);
+            return {{entity}}Converter.ModelToDto(result);
+        }
+    }
+}

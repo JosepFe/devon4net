@@ -1,0 +1,98 @@
+﻿using Devon4Net.Application.WebAPI.Business.{{entity}}Management.Dto;
+using Devon4Net.Application.WebAPI.Business.{{entity}}Management.Services;
+using Devon4Net.Infrastructure.Common;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Devon4Net.Application.WebAPI.Business.{{entity}}Management.Controllers
+{
+    [EnableCors("CorsPolicy")]
+    [ApiController]
+    [Route("[controller]")]
+    public class {{entity}}Controller : ControllerBase
+    {
+        private readonly I{{entity}}Service _{{entity}}Service;
+
+        public {{entity}}Controller(I{{entity}}Service {{entity}}Service)
+        {
+            _{{entity}}Service = {{entity}}Service;
+        }
+
+        /// <summary>
+        /// Gets the entire list of {{entity}}s
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(List<{{entity}}Dto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Get{{entity}}()
+        {
+            Devon4NetLogger.Debug("Executing Get{{entity}} from controller {{entity}}Controller");
+            return Ok(await _{{entity}}Service.Get{{entity}}s().ConfigureAwait(false));
+        }
+        /// <summary>
+        /// Get {{entity}} by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("get")]
+        [ProducesResponseType(typeof(List<{{entity}}Dto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Get{{entity}}ById({{vars.0.type}} id)
+        {
+            Devon4NetLogger.Debug("Executing Get{{entity}} from controller {{entity}}Controller");
+            return Ok(await _{{entity}}Service.GetGet{{entity}}ById(id).ConfigureAwait(false));
+        }
+
+        /// <summary>
+        /// Creates the {{entity}}
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(typeof({{entity}}Dto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Create([FromBody]{{entity}}Dto {{entity}})
+        {
+            Devon4NetLogger.Debug("Executing Create from controller {{entity}}Controller");
+            var result = await _{{entity}}Service.Create{{entity}}({{entity}}).ConfigureAwait(false);
+            return StatusCode(StatusCodes.Status201Created, result);
+        }
+
+        /// <summary>
+        /// Deletes the {{entity}} provided the id
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
+        [ProducesResponseType(typeof({{vars.0.type}}), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Delete({{vars.0.type}} {{entity}}Id)
+        {
+            Devon4NetLogger.Debug("Executing Delete from controller {{entity}}Controller");
+            return Ok(await _{{entity}}Service.Delete{{entity}}({{entity}}Id).ConfigureAwait(false));
+        }
+
+        /// <summary>
+        /// Modifies the done status of the TODO provided the id
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        [ProducesResponseType(typeof({{entity}}Dto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Modify{{entity}}({{vars.0.type}} {{entity}}Id, [FromBody]{{entity}}Dto {{entity}})
+        {
+            Devon4NetLogger.Debug("Executing Modify{{entity}} from controller {{entity}}Controller");
+            return Ok(await _{{entity}}Service.Modify{{entity}}ById({{entity}}Id, {{entity}}).ConfigureAwait(false));
+        }
+    }
+}

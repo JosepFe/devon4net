@@ -1,5 +1,8 @@
 ﻿module Devon4netCli.ConsoleAppComponents
 open System
+open System.Text.Json
+open Utils
+open System.IO
 
 let mutable CircuitBreaker = "1. CircuitBreaker"
 let mutable Jwt = "2. Jwt"
@@ -22,20 +25,29 @@ let printMenu () =
     printfn "%s" Done
     printf "Enter your choise: "
 
-let getInput () = Int32.TryParse (Console.ReadLine())
+let createWebApiProject() =
+    //let componentInfo =
+    //    JsonSerializer.Serialize(
+    //        {| circuitbreaker = CircuitBreaker.Contains("+"); 
+    //           jwt = Jwt.Contains("+"); 
+    //           rabbitmq =RabbitMq.Contains("+"); 
+    //           mediatr = MediatR.Contains("+"); 
+    //           kafka = Kafka.Contains("+"); 
+    //           grpc = Grpc.Contains("+"); 
+    //           nexus = Nexus.Contains("+") |}
+    //    )
 
-let doThis () = printfn "Do this..."
-let doThat () = printfn "Do that..."
+    printf "Output path: "
+    let output_path = Console.ReadLine()
 
-let choice (devonComponent:string) = 
-    if devonComponent.Contains("+") then 
-        devonComponent.Remove(devonComponent.Length - 2)
-    else 
-        devonComponent + " +"
+    let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netConsoleTemplate_launch
+    launchTemplateProcess.WaitForExit()
+
+    printfn "Completed"
 
 let rec console_app_components_menu () =
     System.Console.Clear();
-    printfn "WebAPI Application"
+    printfn "Console Application"
     printMenu()
     match getInput() with
     | true, 1 -> 
@@ -66,7 +78,9 @@ let rec console_app_components_menu () =
         Nexus <- choice(Nexus)
         System.Console.Clear();
         console_app_components_menu()
-    | true, 8 -> ()
+    | true, 8 -> 
+        createWebApiProject()
+        exit 0
     | _ -> console_app_components_menu()
 
 console_app_components_menu ()
