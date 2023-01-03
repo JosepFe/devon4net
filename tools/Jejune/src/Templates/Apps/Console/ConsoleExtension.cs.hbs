@@ -1,0 +1,44 @@
+using Devon4Net.Infrastructure.Common.Application.ApplicationTypes.Console;
+using Devon4Net.Infrastructure.Logger;
+using Microsoft.Extensions.DependencyInjection;
+{{#if circuitbreaker}}
+using Devon4Net.Infrastructure.CircuitBreaker;
+{{/if}}
+{{#if rabbitmq}}
+using Devon4Net.Infrastructure.RabbitMQ;
+{{/if}}
+{{#if mediatr}}
+using Devon4Net.Infrastructure.MediatR;
+{{/if}}
+{{#if kafka}}
+using Devon4Net.Infrastructure.Kafka;
+{{/if}}
+{{#if nexus}}
+using Devon4Net.Infrastructure.Nexus;
+{{/if}}
+
+namespace Devon4Net.Application.Console
+{
+    public class ConsoleExtension : DevonfwConsole
+    {
+        protected override void ConfigureServices(IServiceCollection services)
+        {
+            services.SetupLog(DevonfwConfigurationBuilder.Configuration);
+{{#if circuitbreaker}}
+            services.SetupCircuitBreaker(DevonfwConfigurationBuilder.Configuration);
+{{/if}}
+{{#if rabbitmq}}
+            services.SetupRabbitMq(DevonfwConfigurationBuilder.Configuration);
+{{/if}}
+{{#if mediatr}}
+            services.SetupMediatR(DevonfwConfigurationBuilder.Configuration);
+{{/if}}
+{{#if kafka}}
+            services.SetupKafka(DevonfwConfigurationBuilder.Configuration);
+{{/if}}
+{{#if nexus}}
+            services.SetupNexus(DevonfwConfigurationBuilder.Configuration);
+{{/if}}
+        }
+    }
+}

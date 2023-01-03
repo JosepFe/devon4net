@@ -2,18 +2,18 @@
 
   <PropertyGroup>
 	  <TargetFramework>net6.0</TargetFramework>
-	  <Title>devon4net sample project for APIs</Title>	  
+	  <Title>devon4net template for Console project</Title>	  
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Authors>Capgemini, ADCenter Valencia, Traiectum Team</Authors>
 	  <Company>Capgemini S.A.</Company>
-	  <Description>WebAPI template project. This project shows how to instantiate devon4net and invoke devon4net modules</Description>
+	  <Description>Console template project. This project shows how to instantiate devon4net and invoke devon4net modules</Description>
 	  <Version>6.0.11</Version>
 	  <Copyright>Copyright © Capgemini</Copyright>
 	  <PackageProjectUrl>https://github.com/devonfw/devon4net</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/devonfw/devon4net</RepositoryUrl>
 	  <license>https://raw.githubusercontent.com/devonfw/ide/master/LICENSE</license>
 	  <RepositoryType>git</RepositoryType>
-	  <PackageTags>devonfw;devon4net;Capgemini;api;webapi</PackageTags>
+	  <PackageTags>devonfw;devon4net;Capgemini;api;console</PackageTags>
 	  <PackageReleaseNotes>NET 6.0+ compatibility version</PackageReleaseNotes>
 	  <PackageIcon>devonfw.png</PackageIcon>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -22,23 +22,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Devon4Net.Infrastructure.LiteDb" Version="6.0.11" />
-	  <PackageReference Include="Devon4Net.Infrastructure.Common" Version="6.0.11" />
-	  <PackageReference Include="Devon4Net.Infrastructure.Cors" Version="6.0.11" />
-	  <PackageReference Include="Devon4Net.Infrastructure.FluentValidation" Version="6.0.11" />
-	  <PackageReference Include="Devon4Net.Infrastructure.Logger" Version="6.0.11" />
-	  <PackageReference Include="Devon4Net.Infrastructure.Swagger" Version="6.0.11" />
-	  <PackageReference Include="Devon4Net.Infrastructure.UnitOfWork" Version="6.0.11" />
+    <PackageReference Include="Devon4Net.Infrastructure.Common" Version="6.0.11" />
+    <PackageReference Include="Devon4Net.Infrastructure.Logger" Version="6.0.11" />
 {{#if circuitbreaker}}
     <PackageReference Include="Devon4Net.Infrastructure.CircuitBreaker" Version="6.0.11" />
-{{/if}}
-{{#if jwt}}
-    <PackageReference Include="Devon4Net.Infrastructure.JWT" Version="6.0.11" />
 {{/if}}
 {{#if rabbitmq}}
     <PackageReference Include="Devon4Net.Infrastructure.RabbitMQ" Version="6.0.11" />
@@ -49,26 +36,17 @@
 {{#if kafka}}
     <PackageReference Include="Devon4Net.Infrastructure.Kafka" Version="6.0.11" />
 {{/if}}
-{{#if grpc}}
-    <PackageReference Include="Devon4Net.Infrastructure.Grpc" Version="6.0.11" />
-{{/if}}
 {{#if nexus}}
     <PackageReference Include="Devon4Net.Infrastructure.Nexus" Version="6.0.11" /> 
 {{/if}}
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="appsettings.Development.json">
+    <None Update="appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="appsettings.json">
+    <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Certificates\localhost.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

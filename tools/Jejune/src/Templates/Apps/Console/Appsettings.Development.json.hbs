@@ -1,0 +1,132 @@
+﻿{
+  "devonfw": {
+    "UseDetailedErrorsKey": true,
+    "UseIIS": false,
+    "UseSwagger": true,
+    "UseXsrf": true,
+    "UseModelStateValidation": true,
+    "Environment": "Development",
+    "ForceUseHttpsRedirection": false,
+    "Kestrel": {
+      "UseHttps": false,
+      "HttpProtocol": "Http1AndHttp2",
+      //Http1, Http2, Http1AndHttp2, none
+      "ApplicationPort": 8085,
+      "SslProtocol": "none",
+      //Tls12, Tls13, none. For Https2 Tls12 is needed
+      "ExtraSettings": {
+        "KeepAliveTimeout": 120,
+        //in seconds
+        "MaxConcurrentConnections": 100,
+        "MaxConcurrentUpgradedConnections": 100,
+        "MaxRequestBodySize": 28.6,
+        //In MB. The default maximum request body size is 30,000,000 bytes, which is approximately 28.6 MB
+        "Http2MaxStreamsPerConnection": 100,
+        "Http2InitialConnectionWindowSize": 131072,
+        // From 65,535 and less than 2^31 (2,147,483,648)
+        "Http2InitialStreamWindowSize": 98304,
+        // From 65,535 and less than 2^31 (2,147,483,648)
+        "AllowSynchronousIO": true
+      }
+    }
+  },
+  "Logging": {
+    "UseLogFile": true,
+    "UseSQLiteDb": true,
+    "UseGraylog": false,
+    "UseAOPTrace": false,
+    "LogLevel": {
+      "Default": "Debug",
+      "Microsoft.AspNetCore": "Debug"
+    },
+    "SqliteDatabase": "c:/temp/logs/log.db",
+    "LogFile": "c:/temp/logs/{0}_devonfw.log",
+    "SeqLogServerHost": "",
+    "GrayLog": {
+      "GrayLogHost": "127.0.0.1",
+      "GrayLogPort": "12201",
+      "GrayLogProtocol": "UDP",
+      "MaxUdpMessageSize": 8192
+    }
+  }
+  {{#if circuitbreaker}},
+
+  "CircuitBreaker": {
+    "CheckCertificate": false,
+    "Endpoints": [
+      {
+        "Name": "DestinationA",
+        "BaseAddress": "PUT THE IP ADDRESS HERE",
+        "Headers": {
+        },
+        "WaitAndRetrySeconds": [
+          0.0001,
+          0.0005,
+          0.001
+        ],
+        "DurationOfBreak": 0.0005,
+        "UseCertificate": false,
+        "Certificate": "",
+        "CertificatePassword": "",
+        "SslProtocol": "Tls13", //Tls, Tls11,Tls12, Tls13, none
+        "CompressionSupport": true,
+        "AllowAutoRedirect": true
+      },
+      {
+        "Name": "DestinationB",
+        "BaseAddress": "PUT THE IP ADDRESS HERE",
+        "Headers": {
+        },
+        "WaitAndRetrySeconds": [
+          0.0001,
+          0.0005,
+          0.001
+        ],
+        "DurationOfBreak": 0.0005,
+        "UseCertificate": false,
+        "Certificate": "localhost.pfx",
+        "CertificatePassword": "",
+        "SslProtocol": "Tls13", //Tls, Tls11,Tls12, Tls13, none
+        "CompressionSupport": true,
+        "AllowAutoRedirect": true
+      }
+    ]
+  }{{/if}}{{#if mediatr}},
+
+  "MediatR": {
+    "EnableMediatR": true,
+    "Backup": {
+      "UseLocalBackup": true,
+      "DatabaseName": "devon4netMessageBackup.db"
+    }
+  }{{/if}}{{#if rabbitmq}},
+
+  "RabbitMq": {
+    "EnableRabbitMq": true,
+    "Hosts": [
+      {
+        "Host": "127.0.0.1",
+        "Port": 5672,
+        "Ssl": false,
+        "SslServerName": "",
+        "SslCertPath": "",
+        "SslCertPassPhrase": "",
+        "SslPolicyErrors": "RemoteCertificateNotAvailable" //None, RemoteCertificateNotAvailable, RemoteCertificateNameMismatch, RemoteCertificateChainErrors
+      }
+    ],
+    "VirtualHost": "/",
+    "UserName": "admin",
+    "Password": "password",
+    "Product": "devon4net",
+    "RequestedHeartbeat": 10, //Set to zero for no heartbeat
+    "PrefetchCount": 50,
+    "PublisherConfirms": false,
+    "PersistentMessages": true,
+    "Platform": "localhost",
+    "Timeout": 10,
+    "Backup": {
+      "UseLocalBackup": false,
+      "DatabaseName": "devon4netMessageBackup.db"
+    }
+  }{{/if}}
+}
