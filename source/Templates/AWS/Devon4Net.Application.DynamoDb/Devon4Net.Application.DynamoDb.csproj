@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	<Title>devon4net sample project for AWS DynamoDB</Title>
-	<Version>6.0.7</Version>
+	<Version>6.0.11</Version>
 	<TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <AWSProjectType>Lambda</AWSProjectType>
@@ -46,7 +46,7 @@
   </ItemGroup>  
   
   <ItemGroup>
-	<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.100.14" />	  
+	<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.101.3" />	  
     <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.5.0" />
     <PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.8.2" />
     <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
