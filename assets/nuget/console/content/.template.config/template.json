@@ -1,0 +1,15 @@
+﻿{
+  "author": "Capgemini Valencia ",
+  "classifications": ["devonfw", "Devon4Net","Devon4NetConsole"],
+  "description": "Devon4Net Console solution template for .net core 3.1.10",
+  "name": "Devon4Net Console solution template",
+  "identity": "Devon4Net.Console",
+  "groupIdentity": "Devon4NetConsole",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "shortName": "Devon4NetConsole",
+  "sourceName": "Devon4NetConsole",
+  "guids": []
+}
