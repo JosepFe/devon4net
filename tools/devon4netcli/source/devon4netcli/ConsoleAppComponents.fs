@@ -20,7 +20,7 @@ let printMenu () =
     printfn "%s" Kafka
     printfn "%s" Nexus
     printfn "%s" Done
-    printf "Enter your choise: "
+    printf "Enter your choice: "
 
 let createWebApiProject() =
     let componentInfo =
@@ -42,7 +42,8 @@ let createWebApiProject() =
 
     devon4net_console_components_generation componentInfo Devon4netCliConsts.webapi_console_path destinationPath
 
-    printfn "Completed"
+    printf "Completed, press any key to close"
+    Console.ReadLine()
 
 let rec console_app_components_menu () =
     System.Console.Clear();

@@ -7,30 +7,33 @@ open System
 
 let mutable CircuitBreaker = "1. CircuitBreaker"
 let mutable Jwt = "2. Jwt"
-let mutable RabbitMq = "3. RabbitMq"
-let mutable MediatR = "4. MediatR"
-let mutable Kafka = "5. Kafka"
-let mutable Grpc = "6. Grpc"
-let mutable Nexus = "7. Nexus"
-let mutable Done = "8. Done"
+let mutable AntiForgery = "3. AntiForgery"
+let mutable RabbitMq = "4. RabbitMq"
+let mutable MediatR = "5. MediatR"
+let mutable Kafka = "6. Kafka"
+let mutable Grpc = "7. Grpc"
+let mutable Nexus = "8. Nexus"
+let mutable Done = "9. Done"
 
 let printMenu () =
     printfn "Menu: "
     printfn "%s" CircuitBreaker
     printfn "%s" Jwt
+    printfn "%s" AntiForgery
     printfn "%s" RabbitMq
     printfn "%s" MediatR
     printfn "%s" Kafka
     printfn "%s" Grpc
     printfn "%s" Nexus
     printfn "%s" Done
-    printf "Enter your choise: "
+    printf "Enter your choice: "
 
 let createWebApiProject() =
     let componentInfo =
         JsonSerializer.Serialize(
             {| circuitbreaker = CircuitBreaker.Contains("+"); 
                jwt = Jwt.Contains("+"); 
+               antiForgery = AntiForgery.Contains("+"); 
                rabbitmq =RabbitMq.Contains("+"); 
                mediatr = MediatR.Contains("+"); 
                kafka = Kafka.Contains("+"); 
@@ -41,8 +44,10 @@ let createWebApiProject() =
     printf "Output path: "
     let output_path = Console.ReadLine()
 
-    let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
-    installTemplateProcess.WaitForExit()
+
+
+    //let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
+    //installTemplateProcess.WaitForExit()
     let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netWebApiTemplate_launch
     launchTemplateProcess.WaitForExit()
 
@@ -50,7 +55,8 @@ let createWebApiProject() =
 
     devon4net_webapi_components_generation componentInfo Devon4netCliConsts.webapi_templates_path destinationPath
 
-    printfn "Completed"
+    printf "Completed, press any key to close"
+    Console.ReadLine()
 
 let rec webapi_components_menu () =
     System.Console.Clear();
@@ -66,26 +72,30 @@ let rec webapi_components_menu () =
         System.Console.Clear();
         webapi_components_menu()
     | true, 3 -> 
-        RabbitMq <- choice(RabbitMq)
+        AntiForgery <- choice(AntiForgery)
         System.Console.Clear();
         webapi_components_menu()
     | true, 4 -> 
-        MediatR <- choice(MediatR)
+        RabbitMq <- choice(RabbitMq)
         System.Console.Clear();
         webapi_components_menu()
     | true, 5 -> 
-        Kafka <- choice(Kafka)
+        MediatR <- choice(MediatR)
         System.Console.Clear();
         webapi_components_menu()
     | true, 6 -> 
-        Grpc <- choice(Grpc)
+        Kafka <- choice(Kafka)
         System.Console.Clear();
         webapi_components_menu()
     | true, 7 -> 
-        Nexus <- choice(Nexus)
+        Grpc <- choice(Grpc)
         System.Console.Clear();
         webapi_components_menu()
     | true, 8 -> 
+        Nexus <- choice(Nexus)
+        System.Console.Clear();
+        webapi_components_menu()
+    | true, 9 -> 
         createWebApiProject()
         exit 0
     | _ -> webapi_components_menu()

@@ -79,9 +79,13 @@ let devon4net_webapi_components_generation (componentInfo: string) (frompath: st
 
     let webapiComponentData = jsonpropsToDict (JsonValue.Parse(componentInfo))
 
+    let jwt = Convert.ToBoolean(webapiComponentData.Item("jwt"))
+    let antiForgery = Convert.ToBoolean(webapiComponentData.Item("antiForgery"))
     let rabbitmq = Convert.ToBoolean(webapiComponentData.Item("rabbitmq"))
     let mediatr = Convert.ToBoolean(webapiComponentData.Item("mediatr"))
 
+    let authPath = Path.Combine(topath, "Business","AuthManagement")
+    let antiForgeryPath = Path.Combine(topath, "Business","AntiForgeryTokenManagement")
     let mediatrPath = Path.Combine(topath, "Business","MediatRManagement")
     let rabbitMqPath = Path.Combine(topath, "Business","RabbitMqManagement")
 
@@ -90,6 +94,10 @@ let devon4net_webapi_components_generation (componentInfo: string) (frompath: st
     component_apply_template webapiComponentData csproj topath "Devon4Net.Application.WebAPI.csproj"
     component_apply_template webapiComponentData devonConfiguration topath "Configuration/DevonConfiguration.cs"
 
+    if not jwt then
+        deleteFiles authPath "*.*" true
+    if not antiForgery then
+        deleteFiles antiForgeryPath "*.*" true
     if not mediatr then
         deleteFiles mediatrPath "*.*" true
     if not rabbitmq then  

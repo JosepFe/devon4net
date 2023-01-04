@@ -9,7 +9,7 @@ let devon4netWebApiTemplate_launch = "dotnet new Devon4NetAPI"
 
 let devon4netConsoleTemplate_launch = "dotnet new Devon4NetConsole"
 
-let devon4netAppPath = Path.Combine("Templates","WebAPI","Devon4Net.Application.WebAPI")
+let devon4netAppPath = Path.Combine((*"Templates","WebAPI",*)"Devon4Net.Application.WebAPI")
 let devon4netConsoleAppPath = "Devon4Net.Application.Console"
 
 let baseDirectory = Directory.GetParent(__SOURCE_DIRECTORY__)

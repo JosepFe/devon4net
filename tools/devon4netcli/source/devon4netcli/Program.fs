@@ -12,7 +12,7 @@ let printMenu () =
     printfn "%s" ConsoleApp
     printfn "%s" AwsLambda
     printfn "%s" AzureAppService
-    printf "Enter your choise: "
+    printf "Enter your choice: "
 
 let getInput () = Int32.TryParse (Console.ReadLine())
 
