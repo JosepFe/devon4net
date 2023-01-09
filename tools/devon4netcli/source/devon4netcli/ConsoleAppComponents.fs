@@ -13,7 +13,8 @@ let mutable Nexus = "5. Nexus"
 let mutable Done = "6. Done"
 
 let printMenu () =
-    printfn "Menu: "
+    printLogo()
+    printfn "Choose your components for your Console App: "
     printfn "%s" CircuitBreaker
     printfn "%s" RabbitMq
     printfn "%s" MediatR

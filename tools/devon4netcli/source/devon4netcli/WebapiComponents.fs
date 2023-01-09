@@ -5,18 +5,20 @@ open System.IO
 open Utils
 open System
 
-let mutable CircuitBreaker = "1. CircuitBreaker"
-let mutable Jwt = "2. Jwt"
-let mutable AntiForgery = "3. AntiForgery"
-let mutable RabbitMq = "4. RabbitMq"
-let mutable MediatR = "5. MediatR"
-let mutable Kafka = "6. Kafka"
-let mutable Grpc = "7. Grpc"
-let mutable Nexus = "8. Nexus"
-let mutable Done = "9. Done"
+let mutable CircuitBreaker = "\t1. CircuitBreaker"
+let mutable Jwt = "\t2. Jwt"
+let mutable AntiForgery = "\t3. AntiForgery"
+let mutable RabbitMq = "\t4. RabbitMq"
+let mutable MediatR = "\t5. MediatR"
+let mutable Kafka = "\t6. Kafka"
+let mutable Grpc = "\t7. Grpc"
+let mutable Nexus = "\t8. Nexus"
+let mutable Done = "\t9. Done"
 
 let printMenu () =
-    printfn "Menu: "
+    printLogo()
+    printfn "Choose your components for your WebApi Application: "
+    printfn ""
     printfn "%s" CircuitBreaker
     printfn "%s" Jwt
     printfn "%s" AntiForgery
@@ -25,7 +27,9 @@ let printMenu () =
     printfn "%s" Kafka
     printfn "%s" Grpc
     printfn "%s" Nexus
+    printfn ""
     printfn "%s" Done
+    printfn ""
     printf "Enter your choice: "
 
 let createWebApiProject() =
@@ -44,8 +48,6 @@ let createWebApiProject() =
     printf "Output path: "
     let output_path = Console.ReadLine()
 
-
-
     //let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
     //installTemplateProcess.WaitForExit()
     let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netWebApiTemplate_launch
@@ -60,7 +62,6 @@ let createWebApiProject() =
 
 let rec webapi_components_menu () =
     System.Console.Clear();
-    printfn "WebAPI Application"
     printMenu()
     match getInput() with
     | true, 1 -> 

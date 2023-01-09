@@ -23,3 +23,13 @@ let choice (devonComponent:string) =
         devonComponent + " +"
 
 let getInput () = Int32.TryParse (Console.ReadLine())
+
+let printLogo() =
+    printfn "%s" """
+  ____                        _  _              _    ____ _ _ 
+ |  _ \  _____   _____  _ __ | || |  _ __   ___| |_ / ___| (_)
+ | | | |/ _ \ \ / / _ \| '_ \| || |_| '_ \ / _ \ __| |   | | |
+ | |_| |  __/\ V / (_) | | | |__   _| | | |  __/ |_| |___| | |
+ |____/ \___| \_/ \___/|_| |_|  |_| |_| |_|\___|\__|\____|_|_|
+                                                              
+"""

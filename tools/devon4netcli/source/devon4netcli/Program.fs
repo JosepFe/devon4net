@@ -1,17 +1,21 @@
 ﻿module Devon4netCli.Program
 open System
+open Utils
 
-let mutable Webapi = "1. WebAPI Application"
-let mutable ConsoleApp = "2. Console Application"
-let mutable AwsLambda = "3. AwsLambda"
-let mutable AzureAppService = "4. AzureAppService"
+let mutable Webapi = "\t1. WebAPI Application"
+let mutable ConsoleApp = "\t2. Console Application"
+let mutable AwsLambda = "\t3. AwsLambda"
+let mutable AzureAppService = "\t4. AzureAppService"
 
 let printMenu () =
-    printfn "Menu: "
+    printLogo()
+    printfn "Choose your application type: "
+    printfn ""
     printfn "%s" Webapi
     printfn "%s" ConsoleApp
     printfn "%s" AwsLambda
     printfn "%s" AzureAppService
+    printfn ""
     printf "Enter your choice: "
 
 let getInput () = Int32.TryParse (Console.ReadLine())
