@@ -17,7 +17,7 @@ namespace Devon4Net.Application.WebAPI.Business.{{entity}}Management.Converters
             return new {{entity}}Dto
             {
 
-                {{#each vars}}{{this.name}} = item.{{this.name}}{{this.sep}}
+                {{#each vars}}{{this.name}} = item.{{this.name}}{{#unless @last}},{{/unless}}
                 {{/each}}
 
             };

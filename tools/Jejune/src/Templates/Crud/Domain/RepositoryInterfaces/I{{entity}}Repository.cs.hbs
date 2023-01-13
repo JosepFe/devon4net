@@ -27,7 +27,7 @@ namespace Devon4Net.Application.WebAPI.Domain.RepositoryInterfaces
         /// Create
         /// </summary>
         /// <returns></returns>
-        Task<{{entity}}> Create({{#each vars}}{{this.type}} {{this.name}}{{#unless @last}}{{this.sep}}{{/unless}}{{/each}});
+        Task<{{entity}}> Create({{#each vars}}{{this.type}} {{this.name}}{{#unless @last}},{{/unless}}{{/each}});
 
         /// <summary>
         /// Delete {{entity}} by id

@@ -36,7 +36,7 @@ namespace Devon4Net.Application.WebAPI.Business.{{entity}}Management.Services
         {
             //TODO: Add validation if required
             var swap = {{entity}};            
-            var result = await _{{entity}}Repository.Create({{#each vars}}swap.{{this.name}}{{#unless @last}}{{this.sep}}{{/unless}}{{/each}}).ConfigureAwait(false);
+            var result = await _{{entity}}Repository.Create({{#each vars}}swap.{{this.name}}{{#unless @last}},{{/unless}}{{/each}}).ConfigureAwait(false);
             return {{entity}}Converter.ModelToDto(result);
         }
 

@@ -13,10 +13,10 @@ namespace Devon4Net.Application.WebAPI.Data.Repositories
         {
         }
 
-        public Task<{{entity}}> Create({{#each vars}}{{this.type}} {{this.name}}{{#unless @last}}{{this.sep}}{{/unless}}{{/each}})
+        public Task<{{entity}}> Create({{#each vars}}{{this.type}} {{this.name}}{{#unless @last}},{{/unless}}{{/each}})
         {
             Devon4NetLogger.Debug($"Create method from repository {{entity}}Repository");
-            return Create(new {{entity}} { {{#each vars}}{{this.name}} = {{this.name}}{{#unless @last}}{{this.sep}}{{/unless}}{{/each}} });
+            return Create(new {{entity}} { {{#each vars}}{{this.name}} = {{this.name}}{{#unless @last}},{{/unless}}{{/each}} });
         }
 
         public async Task<{{vars.0.type}}> Delete{{entity}}ById({{vars.0.type}} id)
