@@ -6,6 +6,7 @@ open System
 open JejuneCmd
 open Gen
 open System.IO
+open Utils
     
 
 [<EntryPoint>]
@@ -16,7 +17,9 @@ let main argv =
 
     let templates_path = Path.Combine(baseDirectory.ToString(),"Templates", "Crud")
 
-    Console.Write("Output path: ")
+    printJejuneLogo()
+
+    Console.Write("Provide the path to where you want to generate the code: ")
     let source_path = Console.ReadLine()
     copyAndExpandFiles entities entities_path  templates_path source_path
     0

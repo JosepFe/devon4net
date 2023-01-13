@@ -34,3 +34,14 @@ let rec deleteFiles srcPath pattern includeSubDirs =
         let srcDir = new System.IO.DirectoryInfo(srcPath)
         for subdir in srcDir.GetDirectories() do
             deleteFiles subdir.FullName pattern includeSubDirs
+
+let printJejuneLogo() =
+    printfn "%s" """
+    __        _                  
+   \ \  ___ (_)_   _ _ __   ___ 
+    \ \/ _ \| | | | | '_ \ / _ \
+ /\_/ /  __/| | |_| | | | |  __/
+ \___/ \___|/ |\__,_|_| |_|\___|
+          |__/                  
+                                                              
+"""
