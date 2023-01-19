@@ -48,8 +48,8 @@ let createWebApiProject() =
     printf "Output path: "
     let output_path = Console.ReadLine()
 
-    //let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netTemplate_instalation
-    //installTemplateProcess.WaitForExit()
+    let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4net_webapi_template_instalation
+    installTemplateProcess.WaitForExit()
     let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netWebApiTemplate_launch
     launchTemplateProcess.WaitForExit()
 
