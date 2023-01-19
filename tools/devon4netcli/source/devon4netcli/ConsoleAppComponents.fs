@@ -5,22 +5,25 @@ open Utils
 open System.IO
 open JejuneCmd.Gen
 
-let mutable CircuitBreaker = "1. CircuitBreaker"
-let mutable RabbitMq = "2. RabbitMq"
-let mutable MediatR = "3. MediatR"
-let mutable Kafka = "4. Kafka"
-let mutable Nexus = "5. Nexus"
-let mutable Done = "6. Done"
+let mutable CircuitBreaker = "\t1. CircuitBreaker"
+let mutable RabbitMq = "\t2. RabbitMq"
+let mutable MediatR = "\t3. MediatR"
+let mutable Kafka = "\t4. Kafka"
+let mutable Nexus = "\t5. Nexus"
+let mutable Done = "\t6. Done"
 
 let printMenu () =
     printLogo()
     printfn "Choose your components for your Console App: "
+    printfn ""
     printfn "%s" CircuitBreaker
     printfn "%s" RabbitMq
     printfn "%s" MediatR
     printfn "%s" Kafka
     printfn "%s" Nexus
+    printfn ""
     printfn "%s" Done
+    printfn ""
     printf "Enter your choice: "
 
 let createWebApiProject() =
@@ -36,6 +39,8 @@ let createWebApiProject() =
     printf "Output path: "
     let output_path = Console.ReadLine()
 
+    let installTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4net_console_template_instalation
+    installTemplateProcess.WaitForExit()
     let launchTemplateProcess = executeProcess output_path Devon4netCliConsts.devon4netConsoleTemplate_launch
     launchTemplateProcess.WaitForExit()
 
@@ -48,7 +53,6 @@ let createWebApiProject() =
 
 let rec console_app_components_menu () =
     System.Console.Clear();
-    printfn "Console Application"
     printMenu()
     match getInput() with
     | true, 1 -> 
