@@ -7,7 +7,6 @@ open JejuneCmd
 open Gen
 open System.IO
 open Utils
-    
 
 [<EntryPoint>]
 let main argv =
@@ -23,5 +22,3 @@ let main argv =
     let source_path = Console.ReadLine()
     copyAndExpandFiles entities entities_path  templates_path source_path
     0
-    
-    

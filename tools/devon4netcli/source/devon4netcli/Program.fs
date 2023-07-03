@@ -32,17 +32,16 @@ let AwsLambdaGen() =
 let AzureAppServiceGen() =
     Devon4netCli.AzureAppServiceComponents.azure_appService_components_menu()
 
-
 let rec menu () =
     printMenu()
     match getInput() with
-    | true, 1 -> 
+    | true, 1 ->
         WebApiGen()
-    | true, 2 -> 
+    | true, 2 ->
         ConsoleGen()
-    | true, 3 -> 
+    | true, 3 ->
         AwsLambdaGen()
-    | true, 4 -> 
+    | true, 4 ->
         AzureAppServiceGen()
     | _ -> menu()
 

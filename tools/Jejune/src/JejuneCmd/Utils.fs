@@ -1,4 +1,6 @@
-﻿module Utils
+﻿module JejuneCmd.Utils
+
+open System.IO
 
 let rec directoryCopy srcPath dstPath copySubDirs =
 
@@ -21,7 +23,7 @@ let rec directoryCopy srcPath dstPath copySubDirs =
             directoryCopy subdir.FullName dstSubDir copySubDirs
 
 let rec deleteFiles srcPath pattern includeSubDirs =
-    
+
     if not <| System.IO.Directory.Exists(srcPath) then
         let msg = System.String.Format("Source directory does not exist or could not be found: {0}", srcPath)
         raise (System.IO.DirectoryNotFoundException(msg))
@@ -37,11 +39,62 @@ let rec deleteFiles srcPath pattern includeSubDirs =
 
 let printJejuneLogo() =
     printfn "%s" """
-    __        _                  
-   \ \  ___ (_)_   _ _ __   ___ 
+    __        _
+   \ \  ___ (_)_   _ _ __   ___
     \ \/ _ \| | | | | '_ \ / _ \
  /\_/ /  __/| | |_| | | | |  __/
  \___/ \___|/ |\__,_|_| |_|\___|
-          |__/                  
-                                                              
+          |__/
+
 """
+
+let findLineNumber (lines:string array) (searchString:string) =
+    let lineNumber = Seq.tryFindIndex (fun (line: string) -> line.Contains(searchString)) lines
+    match lineNumber with
+    | Some num -> num + 1
+    | None -> -1
+
+let instertLine (srcPath: string) (newLine: string) (lineToFind: string) (lineAddition: int) =
+
+    let lines = File.ReadAllLines srcPath
+    let lineNumber = findLineNumber lines lineToFind + lineAddition
+    let exists = findLineNumber lines newLine
+    if exists < 0 then
+        let updatedLines = Array.insertAt lineNumber newLine lines
+        File.WriteAllLines (srcPath, updatedLines)
+
+let getEntities (srcPath: string) =
+
+    let mutable entities: string list = []
+    let lines = File.ReadAllLines srcPath
+    for line in lines do
+        if line.Contains("DbSet<") then
+            let entity = line.Split("<").[1].Split(">").[0]
+            entities <- [$"{entity}"] |> List.append entities
+    entities
+
+type JejuneVars = { ``type`` : string ; name : string }
+type JejuneEntity = { context : string ; entity : string ; vars: JejuneVars list }
+
+let generateJejuneEntities (srcPath: string) (contextName: string) =
+
+    let contextPath = Path.Combine(srcPath, "Domain", "Database", $"{contextName}.cs")
+    let entities = getEntities contextPath
+
+    let mutable jejuneEntites: JejuneEntity list = []
+
+    for entity in entities do
+        let entityPath = Path.Combine(srcPath, "Domain", "Entities", $"{entity}.cs" )
+        let mutable jejuneVars: JejuneVars list = []
+
+        let lines = File.ReadAllLines entityPath
+
+        for line in lines do
+            if line.Contains("{ get; set; }") && not (line.Contains("virtual")) then
+                let entity = line.Split("{ get; set; }").[0].Split("public").[1].Split(" ")
+                let jejuneVar = { ``type`` = entity.[1] ; name = entity.[2] }
+                jejuneVars <- [jejuneVar] |> List.append jejuneVars
+
+        let jejuneEntity = { context = contextName ; entity = entity ; vars = jejuneVars }
+        jejuneEntites <- [jejuneEntity] |> List.append jejuneEntites
+    jejuneEntites

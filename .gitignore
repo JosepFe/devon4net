@@ -191,3 +191,6 @@ project.lock.json
 
 #Rider IDE
 .idea/
+
+#Visual Studio code IDE
+.vscode

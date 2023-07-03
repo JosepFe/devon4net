@@ -35,13 +35,13 @@ let printMenu () =
 let createWebApiProject() =
     let componentInfo =
         JsonSerializer.Serialize(
-            {| circuitbreaker = CircuitBreaker.Contains("+"); 
-               jwt = Jwt.Contains("+"); 
-               antiForgery = AntiForgery.Contains("+"); 
-               rabbitmq =RabbitMq.Contains("+"); 
-               mediatr = MediatR.Contains("+"); 
-               kafka = Kafka.Contains("+"); 
-               grpc = Grpc.Contains("+"); 
+            {| circuitbreaker = CircuitBreaker.Contains("+");
+               jwt = Jwt.Contains("+");
+               antiForgery = AntiForgery.Contains("+");
+               rabbitmq =RabbitMq.Contains("+");
+               mediatr = MediatR.Contains("+");
+               kafka = Kafka.Contains("+");
+               grpc = Grpc.Contains("+");
                nexus = Nexus.Contains("+") |}
         )
 
@@ -57,6 +57,14 @@ let createWebApiProject() =
 
     devon4net_webapi_components_generation componentInfo Devon4netCliConsts.webapi_templates_path destinationPath
 
+    printf "Database Connection String: "
+    let connectionString = Console.ReadLine()
+
+    printf "ContextName: "
+    let contextName = Console.ReadLine()
+
+    generate_webapi_scaffolding_crud connectionString contextName output_path (Path.Combine(output_path, Devon4netCliConsts.devon4netAppPath, "Devon4Net.Application.WebAPI.csproj"))
+
     printf "Completed, press any key to close"
     Console.ReadLine()
 
@@ -64,39 +72,39 @@ let rec webapi_components_menu () =
     System.Console.Clear();
     printMenu()
     match getInput() with
-    | true, 1 -> 
+    | true, 1 ->
         CircuitBreaker <- choice(CircuitBreaker)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 2 -> 
+    | true, 2 ->
         Jwt <- choice(Jwt)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 3 -> 
+    | true, 3 ->
         AntiForgery <- choice(AntiForgery)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 4 -> 
+    | true, 4 ->
         RabbitMq <- choice(RabbitMq)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 5 -> 
+    | true, 5 ->
         MediatR <- choice(MediatR)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 6 -> 
+    | true, 6 ->
         Kafka <- choice(Kafka)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 7 -> 
+    | true, 7 ->
         Grpc <- choice(Grpc)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 8 -> 
+    | true, 8 ->
         Nexus <- choice(Nexus)
         System.Console.Clear();
         webapi_components_menu()
-    | true, 9 -> 
+    | true, 9 ->
         createWebApiProject()
         exit 0
     | _ -> webapi_components_menu()
