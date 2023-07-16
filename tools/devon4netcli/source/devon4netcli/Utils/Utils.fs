@@ -1,4 +1,5 @@
-﻿module Devon4netCli.Utils
+﻿module Devon4NetCli.Utils.Utils
+open Devon4NetCli.Consts.Consts
 open System.Diagnostics
 open System
 open System.IO
@@ -36,17 +37,17 @@ let printLogo() =
 
 let generate_webapi_scaffolding_crud (connectionString: string) (contextName: string) (outputPath: string) (csprojPath: string) =
 
-    JejuneCmd.Utils.instertLine csprojPath Devon4netCliConsts.entityFrameworkCore_tools_package_insert Devon4netCliConsts.entityFrameworkCore_design_package_index 0
-    JejuneCmd.Utils.instertLine csprojPath Devon4netCliConsts.entityFrameworkCore_design_package_insert Devon4netCliConsts.entityFrameworkCore_design_package_index 0
+    JejuneCmd.Utils.instertLine csprojPath entityFrameworkCore_tools_package_insert entityFrameworkCore_design_package_index 0
+    JejuneCmd.Utils.instertLine csprojPath entityFrameworkCore_design_package_insert entityFrameworkCore_design_package_index 0
 
-    let command = Devon4netCliConsts.scaffold_sqlServer_comand connectionString contextName
+    let command = scaffold_sqlServer_comand connectionString contextName
 
-    let commandResult = executeProcess (Path.Combine(outputPath, Devon4netCliConsts.devon4netAppPath)) command
+    let commandResult = executeProcess (Path.Combine(outputPath, devon4netAppPath)) command
     commandResult.WaitForExit()
 
-    JejuneCmd.Utils.instertLine (Devon4netCliConsts.appsettingsPath outputPath) (Devon4netCliConsts.appsettings_database_index contextName connectionString) Devon4netCliConsts.appsettings_database_insert 0
-    JejuneCmd.Utils.instertLine (Devon4netCliConsts.devonConfigurationPath outputPath) (Devon4netCliConsts.setup_database_insert contextName) Devon4netCliConsts.setup_database_index 1
+    JejuneCmd.Utils.instertLine (appsettingsPath outputPath) (appsettings_database_index contextName connectionString) appsettings_database_insert 0
+    JejuneCmd.Utils.instertLine (devonConfigurationPath outputPath) (setup_database_insert contextName) setup_database_index 1
 
-    let jejuneEntities = JejuneCmd.Utils.generateJejuneEntities (Path.Combine(outputPath, Devon4netCliConsts.devon4netAppPath)) contextName
+    let jejuneEntities = JejuneCmd.Utils.generateJejuneEntities (Path.Combine(outputPath, devon4netAppPath)) contextName
 
-    JejuneCmd.Gen.generate_crud_files jejuneEntities Devon4netCliConsts.jejune_templates_path (Path.Combine(outputPath, Devon4netCliConsts.devon4netAppPath))
+    JejuneCmd.Gen.generate_crud_files jejuneEntities jejune_templates_path (Path.Combine(outputPath, devon4netAppPath))

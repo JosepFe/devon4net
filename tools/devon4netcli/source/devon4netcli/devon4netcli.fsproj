@@ -6,13 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Consts\Devon4netCliConsts.fs" />
+    <Compile Include="Consts\Consts.fs" />
     <Compile Include="Utils\Utils.fs" />
-    <Compile Include="ConsoleAppComponents.fs" />
-    <Compile Include="AwsLambdaComponents.fs" />
-    <Compile Include="AzureAppServiceComponents.fs" />
-    <Compile Include="WebapiComponents.fs" />
     <Compile Include="Program.fs" />
+    <Compile Include="Apps\ConsoleApp.fs" />
+    <Compile Include="Apps\CleanArchitectureApp.fs" />
+    <Compile Include="Apps\AwsLambdaApp.fs" />
+    <Compile Include="Apps\AzureAppServiceApp.fs" />
+    <Compile Include="Apps\WebapiApp.fs" />
+    <Compile Include="Apps\CleanArchitectureApp.fs" />
   </ItemGroup>
 
   <ItemGroup>

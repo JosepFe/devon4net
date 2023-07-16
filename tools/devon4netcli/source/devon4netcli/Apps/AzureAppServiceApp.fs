@@ -1,4 +1,4 @@
-﻿module Devon4netCli.AzureAppServiceComponents
+﻿module Devon4netCli.Apps.AzureAppServiceComponents
 open System
 
 let mutable BlobStorage = "1. BlobStorage"
@@ -7,10 +7,10 @@ let mutable Done = "3. Done"
 
 let printMenu () =
     printfn "Menu: "
-    printfn "%s" BlobStorage
-    printfn "%s" KeyVault
-    printfn "%s" Done
-    printf "Enter your choise: "
+    printfn $"%s{BlobStorage}"
+    printfn $"%s{KeyVault}"
+    printfn $"%s{Done}"
+    printf "Enter your choice: "
 
 let getInput () = Int32.TryParse (Console.ReadLine())
 
@@ -24,17 +24,17 @@ let choice (devonComponent:string) =
         devonComponent + " +"
 
 let rec azure_appService_components_menu () =
-    System.Console.Clear();
+    Console.Clear();
     printfn "WebAPI Application"
     printMenu()
     match getInput() with
     | true, 1 -> 
         BlobStorage <- choice(BlobStorage)
-        System.Console.Clear();
+        Console.Clear();
         azure_appService_components_menu()
     | true, 2 -> 
         KeyVault <- choice(KeyVault)
-        System.Console.Clear();
+        Console.Clear();
         azure_appService_components_menu()
     | true, 3 -> ()
     | _ -> azure_appService_components_menu()

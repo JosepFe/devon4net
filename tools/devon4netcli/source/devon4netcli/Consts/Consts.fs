@@ -1,4 +1,4 @@
-﻿module Devon4netCli.Devon4netCliConsts
+﻿module Devon4NetCli.Consts.Consts
 
 open System.IO
 

@@ -1,6 +1,8 @@
-﻿module Devon4netCli.Program
+﻿
+module Devon4netCli.Program
 open System
 open Utils
+open Apps
 
 let mutable Webapi = "\t1. WebAPI Application"
 let mutable ConsoleApp = "\t2. Console Application"
