@@ -1,38 +1,42 @@
-﻿
-module Devon4netCli.Program
+﻿module Devon4netCli.Program
+open Devon4NetCli.Utils
 open System
-open Utils
-open Apps
+open Devon4NetCli.Apps
 
-let mutable Webapi = "\t1. WebAPI Application"
-let mutable ConsoleApp = "\t2. Console Application"
-let mutable AwsLambda = "\t3. AwsLambda"
-let mutable AzureAppService = "\t4. AzureAppService"
+let mutable WebapiMonolithic = "\t1. WebAPI Monolithic"
+let mutable WebApiCleanArchitecture = "\t2. WebAPI Clean Architecture"
+let mutable ConsoleApplication = "\t3. Console"
+let mutable AwsLambda = "\t4. Aws Lambda"
+let mutable AzureAppService = "\t5. Azure AppService"
 
 let printMenu () =
-    printLogo()
+    Utils.printLogo()
     printfn "Choose your application type: "
     printfn ""
-    printfn "%s" Webapi
-    printfn "%s" ConsoleApp
-    printfn "%s" AwsLambda
-    printfn "%s" AzureAppService
+    printfn $"%s{WebapiMonolithic}"
+    printfn $"%s{WebApiCleanArchitecture}"
+    printfn $"%s{ConsoleApplication}"
+    printfn $"%s{AwsLambda}"
+    printfn $"%s{AzureAppService}"
     printfn ""
     printf "Enter your choice: "
 
 let getInput () = Int32.TryParse (Console.ReadLine())
 
 let WebApiGen() =
-    Devon4netCli.WebapiComponents.webapi_components_menu()
+    WebApiMonolithicApp.webapi_monolithic_menu()
+
+let CleanArchitectureGen() =
+    CleanArchitectureApp.webapi_clean_architecture_menu()
 
 let ConsoleGen() =
-    Devon4netCli.ConsoleAppComponents.console_app_components_menu()
+    ConsoleApp.console_menu()
 
 let AwsLambdaGen() =
-    Devon4netCli.AwsLambdaComponents.aws_lambda_components_menu()
+    AwsLambdaApp.aws_lambda_menu()
 
 let AzureAppServiceGen() =
-    Devon4netCli.AzureAppServiceComponents.azure_appService_components_menu()
+    AzureAppServiceApp.azure_appService_menu()
 
 let rec menu () =
     printMenu()
@@ -40,12 +44,14 @@ let rec menu () =
     | true, 1 ->
         WebApiGen()
     | true, 2 ->
-        ConsoleGen()
+        CleanArchitectureGen()
     | true, 3 ->
-        AwsLambdaGen()
+        ConsoleGen()
     | true, 4 ->
+        AwsLambdaGen()
+    | true, 5 ->
         AzureAppServiceGen()
     | _ -> menu()
 
-System.Console.Clear();
+Console.Clear();
 menu ()

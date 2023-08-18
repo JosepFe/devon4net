@@ -1,84 +1,88 @@
-﻿module Devon4NetCli.Apps.ConsoleAppComponents
+﻿namespace Devon4NetCli.Apps
+
 open Devon4NetCli.Consts.Consts
 open Devon4NetCli.Utils.Utils
 open System
 open System.Text.Json
 open System.IO
 open JejuneCmd.Gen
+open JejuneCmd.Gen.ConsoleAppGen.ConsoleAppGen
 
-let mutable CircuitBreaker = "\t1. CircuitBreaker"
-let mutable RabbitMq = "\t2. RabbitMq"
-let mutable MediatR = "\t3. MediatR"
-let mutable Kafka = "\t4. Kafka"
-let mutable Nexus = "\t5. Nexus"
-let mutable Done = "\t6. Done"
+module ConsoleApp =
 
-let printMenu () =
-    printLogo()
-    printfn "Choose your components for your Console App: "
-    printfn ""
-    printfn $"%s{CircuitBreaker}"
-    printfn $"%s{RabbitMq}"
-    printfn $"%s{MediatR}"
-    printfn $"%s{Kafka}"
-    printfn $"%s{Nexus}"
-    printfn ""
-    printfn $"%s{Done}ç"
-    printfn ""
-    printf "Enter your choice: "
+    let mutable CircuitBreaker = "\t1. CircuitBreaker"
+    let mutable RabbitMq = "\t2. RabbitMq"
+    let mutable MediatR = "\t3. MediatR"
+    let mutable Kafka = "\t4. Kafka"
+    let mutable Nexus = "\t5. Nexus"
+    let mutable Done = "\t6. Done"
 
-let createWebApiProject() =
-    let componentInfo =
-        JsonSerializer.Serialize(
-            {| circuitbreaker = CircuitBreaker.Contains("+"); 
-               rabbitmq =RabbitMq.Contains("+"); 
-               mediatr = MediatR.Contains("+"); 
-               kafka = Kafka.Contains("+"); 
-               nexus = Nexus.Contains("+") |}
-        )
+    let printMenu () =
+        printLogo()
+        printfn "Choose your components for your Console App: "
+        printfn ""
+        printfn $"%s{CircuitBreaker}"
+        printfn $"%s{RabbitMq}"
+        printfn $"%s{MediatR}"
+        printfn $"%s{Kafka}"
+        printfn $"%s{Nexus}"
+        printfn ""
+        printfn $"%s{Done}"
+        printfn ""
+        printf "Enter your choice: "
 
-    printf "Output path: "
-    let output_path = Console.ReadLine()
+    let createWebApiProject() =
+        let componentInfo =
+            JsonSerializer.Serialize(
+                {| circuitbreaker = CircuitBreaker.Contains("+");
+                   rabbitmq =RabbitMq.Contains("+");
+                   mediatr = MediatR.Contains("+");
+                   kafka = Kafka.Contains("+");
+                   nexus = Nexus.Contains("+") |}
+            )
 
-    let installTemplateProcess = executeProcess output_path devon4net_console_template_instalation
-    installTemplateProcess.WaitForExit()
-    let launchTemplateProcess = executeProcess output_path devon4netConsoleTemplate_launch
-    launchTemplateProcess.WaitForExit()
+        printf "Output path: "
+        let output_path = Console.ReadLine()
 
-    let destinationPath = Path.Combine(output_path, devon4netConsoleAppPath)
+        //let installTemplateProcess = executeProcess output_path devon4net_console_template_installation
+        //installTemplateProcess.WaitForExit()
+        let launchTemplateProcess = executeProcess output_path devon4netConsoleTemplate_launch
+        launchTemplateProcess.WaitForExit()
 
-    devon4net_console_components_generation componentInfo webapi_console_path destinationPath
+        let destinationPath = Path.Combine(output_path, devon4netConsoleAppPath)
 
-    printf "Completed, press any key to close"
-    Console.ReadLine()
+        devon4net_console_components_generation componentInfo webapi_console_path destinationPath
 
-let rec console_app_components_menu () =
-    Console.Clear();
-    printMenu()
-    match getInput() with
-    | true, 1 -> 
-        CircuitBreaker <- choice(CircuitBreaker)
+        printf "Completed, press any key to close"
+        Console.ReadLine()
+
+    let rec console_menu () =
         Console.Clear();
-        console_app_components_menu()
-    | true, 2 -> 
-        RabbitMq <- choice(RabbitMq)
-        Console.Clear();
-        console_app_components_menu()
-    | true, 3 -> 
-        MediatR <- choice(MediatR)
-        Console.Clear();
-        console_app_components_menu()
-    | true, 4 -> 
-        Kafka <- choice(Kafka)
-        Console.Clear();
-        console_app_components_menu()
-    | true, 5 -> 
-        Nexus <- choice(Nexus)
-        Console.Clear();
-        console_app_components_menu()
-    | true, 6 -> 
-        createWebApiProject() |> ignore
-        exit 0
-    | _ -> console_app_components_menu()
+        printMenu()
+        match getInput() with
+        | true, 1 ->
+            CircuitBreaker <- choice(CircuitBreaker)
+            Console.Clear();
+            console_menu()
+        | true, 2 ->
+            RabbitMq <- choice(RabbitMq)
+            Console.Clear();
+            console_menu()
+        | true, 3 ->
+            MediatR <- choice(MediatR)
+            Console.Clear();
+            console_menu()
+        | true, 4 ->
+            Kafka <- choice(Kafka)
+            Console.Clear();
+            console_menu()
+        | true, 5 ->
+            Nexus <- choice(Nexus)
+            Console.Clear();
+            console_menu()
+        | true, 6 ->
+            createWebApiProject() |> ignore
+            exit 0
+        | _ -> console_menu()
 
-console_app_components_menu ()
+    console_menu ()

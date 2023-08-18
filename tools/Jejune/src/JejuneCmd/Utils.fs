@@ -1,6 +1,9 @@
 ﻿module JejuneCmd.Utils
 
 open System.IO
+open System
+open System.Collections
+open HandlebarsDotNet
 
 let rec directoryCopy srcPath dstPath copySubDirs =
 
@@ -98,3 +101,41 @@ let generateJejuneEntities (srcPath: string) (contextName: string) =
         let jejuneEntity = { context = contextName ; entity = entity ; vars = jejuneVars }
         jejuneEntites <- [jejuneEntity] |> List.append jejuneEntites
     jejuneEntites
+
+//Gen Utils
+
+let load_entities path =
+
+        use f = File.OpenText(path)
+        let txt = (f.ReadToEnd ()).Trim()
+        let lst = List.ofArray(txt.Split( Environment.NewLine, StringSplitOptions.None))
+        List.map (fun (x: string) -> x.Trim()) lst
+
+let load_components path =
+
+        use f = File.OpenText(path)
+        let txt = (f.ReadToEnd ()).Trim()
+        let lst = List.ofArray(txt.Split( Environment.NewLine, StringSplitOptions.None))
+        List.map (fun (x: string) -> x.Trim()) lst
+
+let load_template base_path path =
+    use f = File.OpenText(Path.Combine(base_path, path))
+    Handlebars.Compile(f.ReadToEnd())
+
+let expand_write_file (entity: Generic.IDictionary<string,obj>) (template: HandlebarsTemplate<obj,obj>) base_path (path: string) =
+    let _path = Path.Combine(base_path, path.Replace("{{entity}}", entity.["entity"].ToString()))
+
+    let dir = Path.GetDirectoryName(_path)
+    if not (File.Exists(dir)) then
+        Directory.CreateDirectory(dir) |> ignore
+
+    File.WriteAllText(_path, template.Invoke(entity))
+
+let component_apply_template (componentToApply: Generic.IDictionary<string,obj>) (template: HandlebarsTemplate<obj,obj>) base_path (path: string) =
+    let _path = Path.Combine(base_path, path)
+
+    let dir = Path.GetDirectoryName(_path)
+    if not (File.Exists(dir)) then
+        Directory.CreateDirectory(dir) |> ignore
+
+    File.WriteAllText(_path, template.Invoke(componentToApply))

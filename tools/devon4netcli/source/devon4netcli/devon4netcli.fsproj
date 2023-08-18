@@ -8,13 +8,12 @@
   <ItemGroup>
     <Compile Include="Consts\Consts.fs" />
     <Compile Include="Utils\Utils.fs" />
-    <Compile Include="Program.fs" />
-    <Compile Include="Apps\ConsoleApp.fs" />
-    <Compile Include="Apps\CleanArchitectureApp.fs" />
+    <Compile Include="Apps\WebApiMonolithicApp.fs" />
+    <Compile Include="Apps\WebApiCleanArchitectureApp.fs" />
     <Compile Include="Apps\AwsLambdaApp.fs" />
     <Compile Include="Apps\AzureAppServiceApp.fs" />
-    <Compile Include="Apps\WebapiApp.fs" />
-    <Compile Include="Apps\CleanArchitectureApp.fs" />
+    <Compile Include="Apps\ConsoleApp.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>

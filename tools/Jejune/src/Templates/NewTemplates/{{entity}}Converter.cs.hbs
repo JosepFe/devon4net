@@ -1,0 +1,26 @@
+﻿using dtoLocation;
+using entitiesLocation;
+
+namespace namespacetomodify
+{
+    public static class {{entity}}Converter
+    {
+        /// <summary>
+        /// ModelToDto {{entity}} transformation
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static {{entity}}Dto ModelToDto({{entity}} item)
+        {
+            if (item == null) return new {{entity}}Dto();
+
+            return new {{entity}}Dto
+            {
+
+                {{#each vars}}{{this.name}} = item.{{this.name}}{{#unless @last}},{{/unless}}
+                {{/each}}
+
+            };
+        }
+    }
+}

@@ -4,9 +4,9 @@ open System
 // Define a function to construct a message to print
 
 open JejuneCmd
-open Gen
 open System.IO
 open Utils
+open JejuneCmd.Gen.WebApiMonolithicAppGen.WebApiMonolithicAppGen
 
 [<EntryPoint>]
 let main argv =

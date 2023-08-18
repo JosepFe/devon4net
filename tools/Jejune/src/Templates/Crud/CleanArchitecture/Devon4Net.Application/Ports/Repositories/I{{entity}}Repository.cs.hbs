@@ -1,0 +1,39 @@
+﻿using Devon4Net.Domain.UnitOfWork.Repository;
+using Devon4Net.Application.WebAPI.Domain.Entities;
+using System.Linq.Expressions;
+
+namespace Devon4Net.Application.WebAPI.Domain.RepositoryInterfaces
+{
+    /// <summary>
+    /// {{entity}} repository interface
+    /// </summary>
+    public interface I{{entity}}Repository : IRepository<{{entity}}>
+    {
+        /// <summary>
+        /// Get {{entity}} with predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        Task<IList<{{entity}}>> Get{{entity}}(Expression<Func<{{entity}}, bool>> predicate = null);
+
+        /// <summary>
+        /// Get {{entity}} by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<{{entity}}> Get{{entity}}ById({{vars.0.type}} id);
+
+        /// <summary>
+        /// Create
+        /// </summary>
+        /// <returns></returns>
+        Task<{{entity}}> Create({{#each vars}}{{this.type}} {{this.name}}{{#unless @last}},{{/unless}}{{/each}});
+
+        /// <summary>
+        /// Delete {{entity}} by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<{{vars.0.type}}> Delete{{entity}}ById({{vars.0.type}} id);
+    }
+}

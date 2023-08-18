@@ -8,7 +8,9 @@
   <ItemGroup>
     <Compile Include="Utils.fs" />
     <Compile Include="JsonData.fs" />
-    <Compile Include="Gen.fs" />
+    <Compile Include="Gen\WebApiMonolithicAppGen.fs" />
+    <Compile Include="Gen\ConsoleAppGen.fs" />
+    <Compile Include="Gen\WebApiCleanArchitectureGen.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
