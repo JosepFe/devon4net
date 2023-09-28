@@ -90,10 +90,10 @@ module WebApiMonolithicAppGen =
         component_apply_template webapiComponentData devonConfiguration topath "Configuration/DevonConfiguration.cs"
 
         if not jwt then
-            deleteFiles authPath "*.*" true
+            deleteFilesAndDirs authPath "*.*" true
         if not antiForgery then
-            deleteFiles antiForgeryPath "*.*" true
+            deleteFilesAndDirs antiForgeryPath "*.*" true
         if not mediatr then
-            deleteFiles mediatrPath "*.*" true
+            deleteFilesAndDirs mediatrPath "*.*" true
         if not rabbitmq then
-            deleteFiles rabbitMqPath "*.*" true
+            deleteFilesAndDirs rabbitMqPath "*.*" true

@@ -25,20 +25,24 @@ let rec directoryCopy srcPath dstPath copySubDirs =
             let dstSubDir = System.IO.Path.Combine(dstPath, subdir.Name)
             directoryCopy subdir.FullName dstSubDir copySubDirs
 
-let rec deleteFiles srcPath pattern includeSubDirs =
-
+let rec deleteFilesAndDirs srcPath pattern includeSubDirs =
     if not <| System.IO.Directory.Exists(srcPath) then
         let msg = System.String.Format("Source directory does not exist or could not be found: {0}", srcPath)
         raise (System.IO.DirectoryNotFoundException(msg))
 
+    // Delete files in the current directory
     for file in System.IO.Directory.EnumerateFiles(srcPath, pattern) do
         let tempPath = System.IO.Path.Combine(srcPath, file)
         System.IO.File.Delete(tempPath)
 
     if includeSubDirs then
+        // Delete files and directories in subdirectories
         let srcDir = new System.IO.DirectoryInfo(srcPath)
         for subdir in srcDir.GetDirectories() do
-            deleteFiles subdir.FullName pattern includeSubDirs
+            deleteFilesAndDirs subdir.FullName pattern includeSubDirs
+
+    // After deleting files, delete the current directory itself
+    System.IO.Directory.Delete(srcPath, true)
 
 let printJejuneLogo() =
     printfn "%s" """
