@@ -7,9 +7,9 @@ module Consts =
 
     let devon4net_webapi_template_installation = "dotnet new -i Devon4Net.WebAPI.Template::6.0.11"
     let devon4net_console_template_installation = "dotnet new -i Devon4Net.WebAPI.Console::6.0.11"
-    let devon4netWebApiTemplate_launch = "dotnet new Devon4NetAPI"
-
-    let devon4netConsoleTemplate_launch = "dotnet new Devon4NetConsole"
+    let devon4netWebApiMonolithicAppTemplate_launch = "dotnet new Devon4NetAPI"
+    let devon4netConsoleAppTemplate_launch = "dotnet new Devon4NetConsole"
+    let devon4netWebApiCleanArchitectureAppTemplate_launch = "dotnet new Devon4NetCleanArchitecture"
 
     let devon4netAppPath = Path.Combine((*"Templates","WebAPI",*)"Devon4Net.Application.WebAPI")
     let devon4netConsoleAppPath = "Devon4Net.Application.Console"

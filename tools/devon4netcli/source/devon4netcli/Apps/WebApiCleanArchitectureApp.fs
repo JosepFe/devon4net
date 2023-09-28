@@ -48,13 +48,8 @@ module CleanArchitectureApp =
         printf "Output path: "
         let output_path = Console.ReadLine()
 
-        printf "Database Connection String: "
-        let connectionString = Console.ReadLine()
-
-        printf "ContextName: "
-        let contextName = Console.ReadLine()
-
-        generate_clean_architecture_scaffolding_crud connectionString contextName output_path (Path.Combine(output_path, devon4netAppPath, "Devon4Net.Application.WebAPI.csproj"))
+        let launchTemplateProcess = executeProcess output_path devon4netWebApiCleanArchitectureAppTemplate_launch
+        launchTemplateProcess.WaitForExit()
 
         printf "Completed, press any key to close"
         Console.ReadLine()

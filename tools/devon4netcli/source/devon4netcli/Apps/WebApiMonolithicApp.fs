@@ -55,7 +55,7 @@ module WebApiMonolithicApp =
 
         //let installTemplateProcess = executeProcess output_path devon4net_webapi_template_installation
         //installTemplateProcess.WaitForExit()
-        let launchTemplateProcess = executeProcess output_path devon4netWebApiTemplate_launch
+        let launchTemplateProcess = executeProcess output_path devon4netWebApiMonolithicAppTemplate_launch
         launchTemplateProcess.WaitForExit()
 
         let destinationPath = Path.Combine(output_path, devon4netAppPath)

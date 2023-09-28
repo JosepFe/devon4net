@@ -46,7 +46,7 @@ module ConsoleApp =
 
         //let installTemplateProcess = executeProcess output_path devon4net_console_template_installation
         //installTemplateProcess.WaitForExit()
-        let launchTemplateProcess = executeProcess output_path devon4netConsoleTemplate_launch
+        let launchTemplateProcess = executeProcess output_path devon4netConsoleAppTemplate_launch
         launchTemplateProcess.WaitForExit()
 
         let destinationPath = Path.Combine(output_path, devon4netConsoleAppPath)
