@@ -3,11 +3,10 @@ using Devon4Net.Application.Features.Command.CreateEmployee;
 using Devon4Net.Application.Features.Queries.GetAllEmployees;
 using Devon4Net.Application.Features.Queries.GetEmployeeById;
 using Devon4Net.Infrastructure.Common.Application.Attributes;
-using Devon4Net.Infrastructure.Common.Exceptions;
 using Devon4Net.Infrastructure.MediatR.Handler;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Devon4Net.Presentation.Controllers;
+namespace Devon4Net.WebAPI.Controllers;
 
 [ApiController]
 [Route("/employees")]
