@@ -35,9 +35,10 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpGet("{employeeId}")]
-    public Task<EmployeeDto> GetAllEmployees([FromRoute] Guid employeeId)
+    public async Task<IActionResult> GetEmployeeById([FromRoute] Guid employeeId)
     {
         var query = new GetEmployeeByIdQuery(employeeId);
-        return _mediator.QueryAsync(query);
+        var result = await _mediator.QueryAsync(query);
+        return result.BuildResult();
     }
 }

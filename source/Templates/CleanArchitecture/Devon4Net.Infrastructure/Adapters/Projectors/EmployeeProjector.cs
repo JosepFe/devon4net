@@ -27,7 +27,7 @@ public class EmployeeProjector : Projector, IEmployeeProjector
 
         var employeeDtos = await GetProjection(query);
 
-        return employeeDtos.FirstOrDefault() ?? throw new EmployeeNotFoundException();
+        return employeeDtos.FirstOrDefault();
     }
 
     public Task<IEnumerable<EmployeeDto>> GetEmployees()
