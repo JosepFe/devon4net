@@ -24,7 +24,7 @@ namespace Devon4Net.Infrastructure.Common.Application.Attributes
             return Task.CompletedTask;
         }
 
-        private IActionResult HandleContext(int? statusCode = null, string? errorMessage = null, bool showMessage = false)
+        private IActionResult HandleContext(int? statusCode = null, string errorMessage = null, bool showMessage = false)
         {
             statusCode ??= StatusCodes.Status500InternalServerError;
 

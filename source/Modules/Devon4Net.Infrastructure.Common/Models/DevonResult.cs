@@ -70,7 +70,7 @@ public class DevonResult<T> : IDevonResult
         Errors = errors;
     }
 
-    public IEnumerable<DevonError>? GetErrors()
+    public IEnumerable<DevonError> GetErrors()
     {
         return Errors;
     }
