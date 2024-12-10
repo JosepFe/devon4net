@@ -65,7 +65,7 @@ jobs:
           PATCH=$(echo $LATEST_VERSION | cut -d. -f3 | cut -d- -f1) # Removes preview suffix if present
 
           # If the latest version has a preview label, extract the preview number
-          PREVIEW_SUFFIX=$(echo $LATEST_VERSION | grep -oP '(?<=-preview.)(\d+)' || echo "0")
+          PREVIEW_SUFFIX=$(echo $LATEST_VERSION | grep -oP '(?<=-preview\.)\d+' || echo "0")
 
           # Increment version based on user input
           if [ "$VERSION_TYPE" == "major" ]; then
@@ -75,7 +75,12 @@ jobs:
           elif [ "$VERSION_TYPE" == "patch" ]; then
             NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
           elif [ "$VERSION_TYPE" == "preview" ]; then
-            # Increment the preview number if there's a preview suffix
+            # If the patch version is 0 and the preview is selected, we need to start from patch 1
+            if [ "$PATCH" -eq "0" ]; then
+              PATCH=1
+            fi
+
+            # Increment the preview number
             NEW_PREVIEW_SUFFIX=$((PREVIEW_SUFFIX + 1))
             NEW_VERSION="$MAJOR.$MINOR.$PATCH-preview.$NEW_PREVIEW_SUFFIX"
           fi
