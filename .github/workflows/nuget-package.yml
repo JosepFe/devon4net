@@ -32,11 +32,25 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '7.x'
+          dotnet-version: '8.x'
 
       - name: Get latest version from GitHub Packages
         run: |
-          LATEST_VERSION=$(dotnet nuget list source --source "https://nuget.pkg.github.com/JosepFe/index.json" | grep "${{ github.event.inputs.project }}" | head -n 1 | awk '{print $2}')
+          PACKAGE_NAME=$(basename "${{ github.event.inputs.project }}" .csproj)
+          echo "Latest version: $PACKAGE_NAME"
+          GITHUB_USERNAME="JosepFe"
+          GITHUB_TOKEN="${{ secrets.TOKEN_GITHUB }}"
+
+          LATEST_VERSION=$(curl -s -u $GITHUB_USERNAME:$GITHUB_TOKEN \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/users/$GITHUB_USERNAME/packages/nuget/$PACKAGE_NAME/versions" | \
+            jq -r '.[0].name')
+
+          if [ -z "$LATEST_VERSION" ]; then
+            echo "No version found for package $PACKAGE_NAME."
+            exit 1
+          fi
+
           echo "Latest version: $LATEST_VERSION"
           echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
 
