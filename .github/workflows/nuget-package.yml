@@ -82,8 +82,8 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj
 
-      # - name: Build project
-      #   run: dotnet build ${{ github.event.inputs.project }} --configuration Release --no-restore
+      - name: Build project
+        run: dotnet build source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-restore
 
-      # - name: Pack NuGet package
-      #   run: dotnet pack ${{ github.event.inputs.project }} --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }}
+      - name: Pack NuGet package
+        run: dotnet pack source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }}
