@@ -37,7 +37,6 @@ jobs:
       - name: Get latest version from GitHub Packages
         run: |
           PACKAGE_NAME=$(basename "${{ github.event.inputs.project }}" .csproj)
-          echo "Latest version: $PACKAGE_NAME"
           GITHUB_USERNAME="JosepFe"
           GITHUB_TOKEN="${{ secrets.TOKEN_GITHUB }}"
 
