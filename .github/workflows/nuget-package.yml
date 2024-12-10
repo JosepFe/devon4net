@@ -10,6 +10,7 @@ on:
         options:
           - 'Path/To/Project1.csproj'
           - 'Path/To/Project2.csproj'
+          - 'Path/To/Project3.csproj'
       version_type:
         description: 'Select the version type'
         required: true
