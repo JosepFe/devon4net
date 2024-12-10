@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+  devon4net.clean-architecture.web-api:
+    build:
+      context: ../../../.
+      dockerfile: source/Templates/CleanArchitecture/Devon4Net.WebAPI/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+        USERNAME: ${USER_NAME}
+    ports:
+      - "80:8085"
+      - "443:9000"
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    networks:
+      - mydevnetwork
+
+networks:
+  mydevnetwork:
+    driver: bridge
