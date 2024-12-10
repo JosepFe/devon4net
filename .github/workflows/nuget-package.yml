@@ -36,7 +36,7 @@ jobs:
 
       - name: Get latest version from GitHub Packages
         run: |
-          LATEST_VERSION=$(dotnet nuget list source --source "https://nuget.pkg.github.com/<YOUR_GITHUB_USERNAME>/index.json" | grep "${{ github.event.inputs.project }}" | head -n 1 | awk '{print $2}')
+          LATEST_VERSION=$(dotnet nuget list source --source "https://nuget.pkg.github.com/JosepFe/index.json" | grep "${{ github.event.inputs.project }}" | head -n 1 | awk '{print $2}')
           echo "Latest version: $LATEST_VERSION"
           echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
 
