@@ -6,7 +6,7 @@ on:
       project:
         description: 'Select the project to build and pack'
         required: true
-        default: 'Devon4Net.Infrastructure.Common'
+        default: 'Devon4Net.Infrastructure.JWT'
         options:
           - 'Devon4Net.Infrastructure.Common'
           - 'Devon4Net.Infrastructure.Cors'
@@ -14,7 +14,7 @@ on:
       version_type:
         description: 'Select the version type'
         required: true
-        default: 'patch'
+        default: 'preview'
         options:
           - 'major'
           - 'minor'
@@ -64,6 +64,9 @@ jobs:
           MINOR=$(echo $LATEST_VERSION | cut -d. -f2)
           PATCH=$(echo $LATEST_VERSION | cut -d. -f3 | cut -d- -f1) # Removes preview suffix if present
 
+          # If the latest version has a preview label, extract the preview number
+          PREVIEW_SUFFIX=$(echo $LATEST_VERSION | grep -oP '(?<=-preview)(\d+)' || echo "0")
+
           # Increment version based on user input
           if [ "$VERSION_TYPE" == "major" ]; then
             NEW_VERSION="$((MAJOR + 1)).0.0"
@@ -72,23 +75,24 @@ jobs:
           elif [ "$VERSION_TYPE" == "patch" ]; then
             NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
           elif [ "$VERSION_TYPE" == "preview" ]; then
-            PREVIEW_SUFFIX="-preview"
-            NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))$PREVIEW_SUFFIX"
+            # Increment the preview number if there's a preview suffix
+            NEW_PREVIEW_SUFFIX=$((PREVIEW_SUFFIX + 1))
+            NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))-preview.$NEW_PREVIEW_SUFFIX"
           fi
 
           echo "New version: $NEW_VERSION"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
-      - name: Restore dependencies
-        run: dotnet restore source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj
+      # - name: Restore dependencies
+      #   run: dotnet restore source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj
 
-      - name: Build project
-        run: dotnet build source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-restore
+      # - name: Build project
+      #   run: dotnet build source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-restore
 
-      - name: Pack NuGet package
-        run: dotnet pack source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }}
+      # - name: Pack NuGet package
+      #   run: dotnet pack source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }}
 
-      - name: Push NuGet package to GitHub Packages
-        run: |
-          project_dir="/home/runner/work/devon4net/devon4net/nuget-packages"
-          dotnet nuget push "$project_dir/*.nupkg" --source https://nuget.pkg.github.com/JosepFe/index.json --api-key ${{ secrets.TOKEN_GITHUB }}
+      # - name: Push NuGet package to GitHub Packages
+      #   run: |
+      #     project_dir="/home/runner/work/devon4net/devon4net/nuget-packages"
+      #     dotnet nuget push "$project_dir/*.nupkg" --source https://nuget.pkg.github.com/JosepFe/index.json --api-key ${{ secrets.TOKEN_GITHUB }}
