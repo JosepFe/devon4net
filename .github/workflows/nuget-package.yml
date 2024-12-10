@@ -69,22 +69,29 @@ jobs:
 
           # Increment version based on user input
           if [ "$VERSION_TYPE" == "major" ]; then
-            NEW_VERSION="$((MAJOR + 1)).0.0"
+              NEW_VERSION="$((MAJOR + 1)).0.0"
+              
           elif [ "$VERSION_TYPE" == "minor" ]; then
-            NEW_VERSION="$MAJOR.$((MINOR + 1)).0"
+              NEW_VERSION="$MAJOR.$((MINOR + 1)).0"
+
           elif [ "$VERSION_TYPE" == "patch" ]; then
-            NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+              echo $PREVIEW_SUFFIX
+              if [ "$PREVIEW_SUFFIX" -ne "0" ]; then
+                  NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+              elif [ "$PREVIEW_SUFFIX" -eq "0" ]; then
+                  NEW_VERSION="$MAJOR.$MINOR.$((PATCH + 1))"
+              fi
+              
           elif [ "$VERSION_TYPE" == "preview" ]; then
-            # If the patch version is 0 and the preview is selected, we need to start from patch 1
-            if [ "$PATCH" -eq "0" ]; then
+              # If the patch version is 0 and the preview is selected, we need to start from patch 1
+              if [ "$PATCH" -eq "0" ]; then
               PATCH=1
-            fi
+              fi
 
-            # Increment the preview number
-            NEW_PREVIEW_SUFFIX=$((PREVIEW_SUFFIX + 1))
-            NEW_VERSION="$MAJOR.$MINOR.$PATCH-preview.$NEW_PREVIEW_SUFFIX"
+              # Increment the preview number
+              NEW_PREVIEW_SUFFIX=$((PREVIEW_SUFFIX + 1))
+              NEW_VERSION="$MAJOR.$MINOR.$PATCH-preview.$NEW_PREVIEW_SUFFIX"
           fi
-
           echo "New version: $NEW_VERSION"
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
