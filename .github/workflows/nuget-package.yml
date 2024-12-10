@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       project:
-        description: 'Select the project to build'
+        description: 'Select the project to build and pack'
         required: true
-        default: 'Path/To/Project1.csproj'
+        default: 'Devon4Net.Infrastructure.Common'
         options:
-          - 'Path/To/Project1.csproj'
-          - 'Path/To/Project2.csproj'
-          - 'Path/To/Project3.csproj'
+          - 'Devon4Net.Infrastructure.Common'
+          - 'Devon4Net.Infrastructure.Cors'
+          - 'Devon4Net.Infrastructure.JWT'
       version_type:
         description: 'Select the version type'
         required: true
@@ -36,7 +36,7 @@ jobs:
 
       - name: Get latest version from GitHub Packages
         run: |
-          LATEST_VERSION=$(dotnet nuget list source --source "https://nuget.pkg.github.com/<YOUR_GITHUB_USERNAME>/index.json" | grep "<PackageName>" | head -n 1 | awk '{print $2}')
+          LATEST_VERSION=$(dotnet nuget list source --source "https://nuget.pkg.github.com/<YOUR_GITHUB_USERNAME>/index.json" | grep "${{ github.event.inputs.project }}" | head -n 1 | awk '{print $2}')
           echo "Latest version: $LATEST_VERSION"
           echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
 
@@ -67,10 +67,10 @@ jobs:
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Restore dependencies
-        run: dotnet restore ${{ github.event.inputs.project }}
+        run: dotnet restore source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj
 
-      - name: Build project
-        run: dotnet build ${{ github.event.inputs.project }} --configuration Release --no-restore
+      # - name: Build project
+      #   run: dotnet build ${{ github.event.inputs.project }} --configuration Release --no-restore
 
-      - name: Pack NuGet package
-        run: dotnet pack ${{ github.event.inputs.project }} --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }}
+      # - name: Pack NuGet package
+      #   run: dotnet pack ${{ github.event.inputs.project }} --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }}
