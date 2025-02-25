@@ -1,6 +1,6 @@
 ﻿namespace Devon4Net.Infrastructure.Logger.Outputs.SqLiteDb;
 
-using Devon4Net.Infrastructure.Common.IO;
+using Devon4Net.Infrastructure.Logger.Utils;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 

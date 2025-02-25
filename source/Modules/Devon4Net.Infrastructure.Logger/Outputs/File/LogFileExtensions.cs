@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using Devon4Net.Infrastructure.Common.IO;
+using Devon4Net.Infrastructure.Logger.Utils;
 
 public static class LogFileExtensions
 {
