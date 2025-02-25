@@ -12,13 +12,13 @@ using Devon4Net.Infrastructure.UnitOfWork;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.InitializeDevonfwApi(builder.Host);
+builder.Host.SetupLogging();
 
 #region services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 var devonfwOptions = builder.Services.SetupDevonfw(builder.Configuration);
 builder.Services.SetupMiddleware(builder.Configuration);
-builder.Services.SetupLog(builder.Configuration);
 builder.Services.SetupSwagger(builder.Configuration);
 
 //UoW CONFIGURATION

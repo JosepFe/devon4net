@@ -5,6 +5,8 @@ using Devon4Net.Infrastructure.Logger;
 using Devon4Net.Infrastructure.MediatR;
 using Devon4Net.Infrastructure.UnitOfWork;
 using Devon4Net.Presentation;
+using Devon4Net.Infrastructure.Common.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,15 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.InitializeDevonfwApi(builder.Host);
 builder.Services.AddControllers();
 
+builder.Host.SetupLogging();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.SetupDevonfw(builder.Configuration);
+
+builder.Services.AddHeadersPropagation(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.SetupLog(builder.Configuration);
 builder.Services.SetupMiddleware(builder.Configuration);
 builder.Services.SetupUnitOfWork();
 builder.Services.SetupMediatR(builder.Configuration);
-builder.Services.SetupCustomDependencyInjection(builder.Configuration);
+builder.Services.SetupCustomDependencyInjection(builder.Configuration); //rename
 builder.Services.SetupCors(builder.Configuration);
 
 var app = builder.Build();
@@ -32,7 +37,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHeaderPropagation();
 app.SetupMiddleware(builder.Services);
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

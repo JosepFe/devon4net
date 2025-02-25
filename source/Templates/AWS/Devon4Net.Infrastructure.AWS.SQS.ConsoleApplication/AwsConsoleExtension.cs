@@ -27,7 +27,7 @@ namespace Devon4Net.Infrastructure.AWS.SQS.ConsoleApplication
             var awsRegion = AwsCredentialsHelper.LoadAwsRegionEndpoint();
             if (awsRegion != null) services.AddSingleton(awsRegion);
 
-            services.SetupLog(DevonfwConfigurationBuilder.Configuration);
+            services.SetupLogging(DevonfwConfigurationBuilder.Configuration);
             services.SetupSqs(DevonfwConfigurationBuilder.Configuration);
             services.AddSqsConsumer<SqsConsumerSample>(SqsSampleConsts.QueueName);
             services.AddScoped<SqsSample>();

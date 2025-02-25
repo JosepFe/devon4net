@@ -20,7 +20,7 @@ builder.Services.AddControllers();
 
 #region devon services
 var devonfwOptions = builder.Services.SetupDevonfw(builder.Configuration);
-builder.Services.SetupLog(builder.Configuration!);
+builder.Host.SetupLogging();
 builder.Services.SetupMiddleware(builder.Configuration);
 builder.Services.SetupSwagger(builder.Configuration);
 builder.Services.SetupCircuitBreaker(builder.Configuration);
