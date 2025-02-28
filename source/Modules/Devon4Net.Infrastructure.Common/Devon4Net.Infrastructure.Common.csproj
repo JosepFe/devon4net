@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<OutputType>Library</OutputType>
 		<Authors>Capgemini, ADCenter Valencia, Traiectum Team</Authors>
 		<Company>Capgemini S.A.</Company>
 		<Description>Common classes for devon4net</Description>
