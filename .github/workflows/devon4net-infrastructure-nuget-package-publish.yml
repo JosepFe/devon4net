@@ -102,7 +102,7 @@ jobs:
         run: dotnet build source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }} /p:Version=${{ env.NEW_VERSION }}
+        run: dotnet pack source/Modules/${{ github.event.inputs.project }}/${{ github.event.inputs.project }}.csproj --configuration Release --no-build --output ./nuget-packages /p:PackageVersion=${{ env.NEW_VERSION }} /p:Version=${{ env.NEW_VERSION }} /p:AssemblyFileVersion=${{ env.NEW_VERSION }}
 
       - name: Push NuGet package to GitHub Packages
         run: |
